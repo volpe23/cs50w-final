@@ -1,0 +1,22 @@
+.airport {
+    height: 100px;
+    min-width: 300px;
+    padding: 1rem;
+    background-color: rgb(12, 12, 12);
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 2rem;
+}
+
+.airport__iata_code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+}
