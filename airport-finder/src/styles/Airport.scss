@@ -1,20 +1,31 @@
+@import './main.scss';
+
 .airport {
-    height: 100px;
-    min-width: 300px;
-    padding: 1rem;
-    background-color: rgb(12, 12, 12);
+    height: 70px;
+    min-width: 200px;
+    padding: 0 1rem;
+    background-color: $onyx;
     display: flex;
     align-items: center;
-    color: white;
+    
+    border: none;
     gap: 2rem;
+    transition: all 0.2s ease-in-out;
+    border-radius: 10px;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid $grey;
+        background-color: $jet;
+    }
 }
 
 .airport__iata_code {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     border-radius: 10px;
     background-color: white;
     color: black;

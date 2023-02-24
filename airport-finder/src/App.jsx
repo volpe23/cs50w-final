@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import Finder from './components/FInder'
-import './App.css'
+import Flights from './components/Flights'
+import './styles/App.scss'
 
 function App() {
 
   return (
-    <main class="main">
+    <main className="main">
       <Finder />
+      <Flights />
     </main>
   )
 }

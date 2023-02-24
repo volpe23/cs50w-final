@@ -1,6 +1,20 @@
+@import './main.scss';
+
 .finder {
-    height: 2rem;
-    padding: 0.5rem;
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+}
+
+.finder:first-of-type {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.finder:last-of-type {
+    
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .search-div {
@@ -9,5 +23,71 @@
 
 .results {
     position: absolute;
-    top: 2.5rem;
+    // top: 3.2rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    background-color: $onyx;
+    width: 100%;
+    padding: 0.5rem;
+    color: white;
+    max-height: 300px;
+    overflow-y: scroll;
+
+    .triangle {
+        // background-color: red;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid $onyx;
+        position: absolute;
+        // transform: translateY(-15px);
+        top: -8px;
+        
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+.from {
+    // transform: translateX(75px);
+    left: 24%;
+}
+.destination {
+    // transform: translateX(280px);
+    left: 75%;
+}
+
+.searchbox {
+    position: relative;
+
+}
+
+.swap-button {
+    position: absolute;
+    height: 1.7rem;
+    width: 1.7rem;
+    border-radius: 50%;
+    border: 0.5px solid rgb(189, 189, 189);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(240, 240, 240);
+    // display: none;
 }

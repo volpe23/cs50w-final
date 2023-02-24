@@ -25,5 +25,5 @@ def scrape(request):
 
 def flight(request):
     flights = scraper.launch_browser()
-    print("Triggered")
+    print(flights)
     return JsonResponse({'flights' : flights}, safe=False)
