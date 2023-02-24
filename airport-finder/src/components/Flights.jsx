@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
 
-export default function Flights() {
+export default function Flights(props) {
 
     const [flights, setFlights] = useState([])
     const url = 'http://127.0.0.1:8000/backend/flight';
@@ -16,11 +16,11 @@ export default function Flights() {
         console.log(data.flights)
         setFlights(data.flights);
     }
-
+    
     return (
         <div>
         
-        <button onClick={getFlights}>Get flights</button>
+        <button onClick={getFlights} >Get flights</button>
             { flights.map(f => {
                 return <div>
                     <p>{f.price}</p>
