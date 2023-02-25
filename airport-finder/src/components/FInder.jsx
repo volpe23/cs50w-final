@@ -73,7 +73,7 @@ export default function Finder({ airports }) {
                 <input type='text' placeholder='To' name='destination' className='finder' onFocus={handleInputFocus} onChange={(e) => searchAirport(e.target.value)}/>
             </div>
             {(resultsShown)  && <AirportResults results={results} resultsShown={resultsShown} handleAirportSelection={handleAirportSelection}/>}
-            {(from && destination) && <Flights from={from?.iata_code} destination={destination?.iata_code}/>}
+            {<Flights from={from?.iata_code} destination={destination?.iata_code}/>}
         </div>
     )
 }

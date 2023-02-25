@@ -19,6 +19,7 @@
 
 .search-div {
     position: relative;
+    max-width: 600px;
 
     >p {
         text-align: center;
@@ -81,7 +82,9 @@
 
 .searchbox {
     position: relative;
-
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .swap-button {
