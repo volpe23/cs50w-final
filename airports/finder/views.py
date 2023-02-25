@@ -24,6 +24,9 @@ def scrape(request):
     return render(request, 'finder/scraper.html')
 
 def flight(request):
-    flights = scraper.launch_browser()
-    print(flights)
+    from_airport = request.GET['from']
+    destination = request.GET['destination']
+    print(from_airport, destination)
+    flights = scraper.launch_browser(from_airport, destination)
+    # print(flights)
     return JsonResponse({'flights' : flights}, safe=False)

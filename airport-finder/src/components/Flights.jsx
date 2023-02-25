@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
 
-export default function Flights(props) {
+export default function Flights({from, destination}) {
 
     const [flights, setFlights] = useState([])
-    const url = 'http://127.0.0.1:8000/backend/flight';
+    const url = `http://127.0.0.1:8000/backend/flight?from=${from}&destination=${destination}`;
     const client = axios.create({
         baseURL: 'http://127.0.0.1:8000/backend/flight',
         headers: {"Access-Control-Allow-Origin": "*"}
@@ -23,7 +23,7 @@ export default function Flights(props) {
         <button onClick={getFlights} >Get flights</button>
             { flights.map(f => {
                 return <div>
-                    <p>{f.price}</p>
+                    {/* <p>{f.price}</p> */}
                     <div>
                         <p>{f.out?.date}</p>
                         <p>{f.out?.times}</p>

@@ -8,10 +8,10 @@ import time
 
 PATH = 'C:/Users/lv-andrisr/OneDrive - TEKNOS GROUP OY/Desktop/test/chromedriver.exe'
 
-def launch_browser():
+def launch_browser(from_airport, destination):
     # skyscanner url
     # https://www.skyscanner.net/transport/flights/rix/mty/230930/231007/?adultsv2=2&cabinclass=economy
-    url = 'https://www.kayak.ie/flights/RIX-MTY/2023-09-24-flexible-3days/2023-10-03-flexible-3days/2adults?sort=bestflight_a'
+    url = f'https://www.kayak.ie/flights/{from_airport}-{destination}/2023-09-24-flexible-3days/2023-10-03-flexible-3days/2adults?sort=bestflight_a'
     options = Options()
     options.add_experimental_option('detach', True)
     # options.headless = True
@@ -63,6 +63,8 @@ def launch_browser():
         
     except NoSuchElementException:
         print("why??")
+        driver.quit()
+        return scraped
     finally:
         driver.quit()
         return scraped
