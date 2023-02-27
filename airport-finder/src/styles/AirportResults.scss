@@ -3,15 +3,15 @@
 .results {
     position: absolute;
     // top: 3.2rem;
-    margin: 3rem 0;
+    margin: 1rem 0;
     border-radius: 10px;
     background-color: $onyx;
-    width: 100%;
+    width: max(100%, 200px);
     padding: 0.5rem;
     color: white;
     max-height: 300px;
     overflow-y: scroll;
-
+    transform: translateX(-25%);
     .triangle {
         // background-color: red;
         border-left: 10px solid transparent;

@@ -9,9 +9,7 @@ export default function AirportInput ({ placeholder, airports, setAirport, selec
     const divWrapper = useRef(null)
 
     const searchAirport = (searchBox) => {
-        // const searchBox = e.target.value;
         if (searchBox.length === 0) {
-            setResultsShown(false)
             return setResults([])
         }
         
@@ -25,7 +23,6 @@ export default function AirportInput ({ placeholder, airports, setAirport, selec
             );
           });
         setResults(fits)
-        // setResultsShown(true)
     }
     
     const handleAirportSelection = (airport) => {
