@@ -1,55 +1,8 @@
 @import './main.scss';
 
-.finder {
-    height: 2.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    border: 1px solid lightgray;
-}
 
-.finder:first-of-type {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-.finder:last-of-type {
-    
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
 
-.search-div {
-    position: relative;
-    max-width: 600px;
 
-    >p {
-        text-align: center;
-        margin: 1rem 0;
-    }
-}
-
-.results {
-    position: absolute;
-    // top: 3.2rem;
-    margin: 1rem 0;
-    border-radius: 10px;
-    background-color: $onyx;
-    width: 100%;
-    padding: 0.5rem;
-    color: white;
-    max-height: 300px;
-    overflow-y: scroll;
-
-    .triangle {
-        // background-color: red;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid $onyx;
-        position: absolute;
-        // transform: translateY(-15px);
-        top: -8px;
-        
-    }
-}
 
 /* width */
 ::-webkit-scrollbar {
