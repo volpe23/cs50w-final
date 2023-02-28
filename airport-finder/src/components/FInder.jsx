@@ -5,9 +5,10 @@ import AirportResults from './AirportResults';
 import '../styles/Finder.scss'
 
 export default function Finder({  }) {
-    const [airports, setAirports] = useState(null)
+    const [airports, setAirports] = useState(null);
     const [from, setFrom] = useState(null);
     const [destination, setDestination] = useState(null);
+    const [flights, setFlights] = useState([exampleFlight]);
 
     const getAirports = async () => {
         const airports = await fetch('https://raw.githubusercontent.com/algolia/datasets/master/airports/airports.json');
@@ -16,31 +17,8 @@ export default function Finder({  }) {
     }
 
 
-    
-
-    // const handleInputFocus = (e) => {
-    //     console.log('focused');
-    //     setResultsShown({isFocused: true, focused: e.target});
-    //     searchAirport(e.target.value);
-    // }
-    // const handleInputBlur = (e) => {
-    //     console.log(e.target.value)
-    //     if (e.target.value.length !== 0) {
-    //         e.target.name === 'from' ? e.target.value = from?.city : e.target.value = destination?.city
-    //     } else return
-    // }
-
-
-    const click = (e) => {
-        if (!searchDiv.contains(e.target)) setResultsShown(false);
-    }
-
     useEffect(() => {
-        // const searchDiv = document.querySelector('.search-div');
-        
-        // window.addEventListener('click', click)
         getAirports()
-        // return () => window.removeEventListener('click', click)
     }, [])
 
     const swapDirections = () => {
@@ -49,6 +27,13 @@ export default function Finder({  }) {
         setDestination(temp);
     }
 
+    async function getFlights() {
+        const url = `http://127.0.0.1:8000/backend/flight?from=${from?.iata_code}&destination=${destination?.iata_code}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data.flights)
+        setFlights([exampleFlight, ...data.flights]);
+    }
 
     return (
         <div className='search-div'>
@@ -67,9 +52,17 @@ export default function Finder({  }) {
                     setAirport={setDestination} 
                     selectedAirport={destination}
                 />
+                <button onClick={getFlights} >Get flights</button>
             </div>
             {/* {(resultsShown)  && <AirportResults results={results} resultsShown={resultsShown} handleAirportSelection={handleAirportSelection}/>} */}
-            {<Flights from={from?.iata_code} destination={destination?.iata_code}/>}
+            {<Flights flights={flights}/>}
         </div>
     )
 }
+
+
+const exampleFlight = {'id': '788164faf6eacacf9a5eaf8bab6d6b02', 
+    'price': '€322', 
+    'link': 'https://www.kayak.ie/book/flight?code=PdECIldOSL.FC9t5hE4q2rBDARZyLA7ng.33906.788164faf6eacacf9a5eaf8bab6d6b02&h=19c7db95e8a2&sub=E-1897db19a5e&payment=0.00:EUR:VA_D:Visa%20Debit:true&pageOrigin=F..RP.FE.M16', 
+    'out': {'date': '22/9', 'times': '11:30–13:35', 'stopovers': ['direct', ''], 'duration': '3h 05m'}, 
+    'in': {'date': '4/10', 'times': '14:20–18:20', 'stopovers': ['direct', ''], 'duration': '3h 00m'}}

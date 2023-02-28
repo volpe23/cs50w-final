@@ -3,7 +3,7 @@
 .flight {
     background-color: white;
     border-radius: 10px;
-    width: 100%;
+    width: 600px;
     display: grid;
     grid-template-columns: 80% 1fr;
     height: 140px;
@@ -26,8 +26,25 @@
     gap: 10px;
 }
 
-.flight__price {
+.flight__info {
     align-self: center;
     justify-self: center;
     grid-column: 2 / -1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+}
+
+.btn {
+    background-color: $pigment-green;
+    padding: 0.5rem 0.75rem;
+    // min-width: 10px;
+    font-size: 1rem;
+    font-weight: $fw-normal;
+    color: white;
+    border: none;
+    border-radius: 0.35rem;
 }
