@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import Flights from './Flights';
 import AirportInput from './AirportInput';
-import AirportResults from './AirportResults';
+import Button from './utils/Button';
+import SearchIcon from '@mui/icons-material/Search';
+
+import DateSelector from './utils/Date';
+
 import '../styles/Finder.scss'
 
 export default function Finder({  }) {
@@ -9,6 +13,8 @@ export default function Finder({  }) {
     const [from, setFrom] = useState(null);
     const [destination, setDestination] = useState(null);
     const [flights, setFlights] = useState([exampleFlight]);
+    const [startDate, setStartDate] = useState(null);
+    const [backDate, setBackDate] = useState(null);
 
     const getAirports = async () => {
         const airports = await fetch('https://raw.githubusercontent.com/algolia/datasets/master/airports/airports.json');
@@ -28,7 +34,7 @@ export default function Finder({  }) {
     }
 
     async function getFlights() {
-        const url = `http://127.0.0.1:8000/backend/flight?from=${from?.iata_code}&destination=${destination?.iata_code}`;
+        const url = `http://127.0.0.1:8000/backend/flight?from=${from?.iata_code}&destination=${destination?.iata_code}&start=${convertDate(startDate)}&back=${convertDate(backDate)}`;
         const response = await fetch(url);
         const data = await response.json();
         console.log(data.flights)
@@ -52,14 +58,27 @@ export default function Finder({  }) {
                     setAirport={setDestination} 
                     selectedAirport={destination}
                 />
-                <button onClick={getFlights} >Get flights</button>
+                <Button onClick={getFlights} type={"round"}>
+                    <SearchIcon></SearchIcon>
+                </Button>
+            </div>
+            <div>
+            <DateSelector onDateSelect={setStartDate} />
+            <DateSelector onDateSelect={setBackDate} />
             </div>
             {/* {(resultsShown)  && <AirportResults results={results} resultsShown={resultsShown} handleAirportSelection={handleAirportSelection}/>} */}
-            {<Flights flights={flights}/>}
+            <Flights flights={flights}/>
         </div>
     )
 }
 
+function convertDate(inp) {
+    const date = new Date(`${inp}`)
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // add leading zero if month is a single digit
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`
+}
 
 const exampleFlight = {'id': '788164faf6eacacf9a5eaf8bab6d6b02', 
     'price': '€322', 

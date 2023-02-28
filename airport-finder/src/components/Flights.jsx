@@ -16,9 +16,7 @@ export default function Flights({ flights }) {
 
     return (
         <div className="all-flights">
-        
-        
-            { flights.map((flight) => {
+            {flights.map((flight) => {
                 return <Flight key={flight.id} flight={flight} />
             })}
         </div>
