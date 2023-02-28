@@ -37,16 +37,17 @@ def launch_browser(from_airport, destination):
         xp_offers = './/div[@data-resultid]'
         offers = results.find_elements(By.XPATH, xp_offers)
         for offer in offers:
+            offer_id = offer.get_attribute('data-resultid')
             xp_price = './div[2]/div/div/div[2]/div/div[2]/div/div[1]/a/div/div/div[1]/div[1]'
             price = offer.find_element(By.XPATH, xp_price).text
             # xp_flights = './div[2]/div/div/div[1]/div[2]/div/ol'
 
             xp_link = f'.//a[@role="link"]'
-            link = offer.find_element(By.XPATH, xp_link)
+            link = offer.find_element(By.XPATH, xp_link).get_attribute('href')
 
             xp_flights = './/ol'
             flights = offer.find_element(By.XPATH, xp_flights).find_elements(By.TAG_NAME, 'li')
-            obj = {'price' : price, 'link' : link, 'out' : {}, 'in' : {}}
+            obj = {'id' : offer_id, 'price' : price, 'link' : link, 'out' : {}, 'in' : {}}
             for i, flight in enumerate(flights):
                 # flight_info = flight.find_element(By.XPATH, './div/div')
                 

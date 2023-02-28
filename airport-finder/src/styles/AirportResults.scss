@@ -6,12 +6,14 @@
     margin: 1rem 0;
     border-radius: 10px;
     background-color: $onyx;
-    width: max(100%, 200px);
+    min-width: 260px;
+    width: clamp(280px, 80%, calc($airport-input-width*2));
+    // width: max-content;
     padding: 0.5rem;
     color: white;
     max-height: 300px;
     overflow-y: scroll;
-    transform: translateX(-25%);
+    // transform: translateX(-25%);
     .triangle {
         // background-color: red;
         border-left: 10px solid transparent;
