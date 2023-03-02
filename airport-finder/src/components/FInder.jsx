@@ -8,10 +8,9 @@ import DateSelector from './utils/Date';
 
 import '../styles/Finder.scss'
 
-export default function Finder({}) {
+export default function Finder({from, destination, setFrom, setDestination}) {
     const [airports, setAirports] = useState(null);
-    const [from, setFrom] = useState(null);
-    const [destination, setDestination] = useState(null);
+
     const [flights, setFlights] = useState([exampleFlight]);
     const [startDate, setStartDate] = useState(null);
     const [backDate, setBackDate] = useState(null);
@@ -21,7 +20,6 @@ export default function Finder({}) {
         const results = await airports.json();
         setAirports(results)
     }
-
 
     useEffect(() => {
         getAirports()
@@ -44,6 +42,7 @@ export default function Finder({}) {
 
     return (
         <div className='search-div'>
+        <p>{from?.city}</p>
         <p>{from && `${from?.city} (${from?.iata_code})`} - {destination && `${destination.city} (${destination.iata_code})`}</p>
             <div className="searchbox">
                 <AirportInput 
@@ -52,9 +51,9 @@ export default function Finder({}) {
                     setAirport={setFrom}
                     selectedAirport={from}
                 />
-                <button className='swap-button' onClick={() => swapDirections()}>
+                {/* <button className='swap-button' onClick={() => swapDirections()}>
                     <SyncAltIcon />
-                </button>
+                </button> */}
                 <AirportInput 
                     placeholder={'To'} 
                     airports={airports} 
@@ -65,10 +64,10 @@ export default function Finder({}) {
                     <SearchIcon></SearchIcon>
                 </Button>
             </div>
-            {(from && destination) && <div className='date-selectors'>
+        <div className='date-selectors'>
                 <DateSelector onDateSelect={setStartDate} />
                 <DateSelector onDateSelect={setBackDate} />
-            </div>}
+            </div>
             {/* {(resultsShown)  && <AirportResults results={results} resultsShown={resultsShown} handleAirportSelection={handleAirportSelection}/>} */}
             <Flights flights={flights}/>
         </div>
