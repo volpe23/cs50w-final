@@ -1,33 +1,5 @@
 @import './main.scss';
 
-
-
-
-
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-    background-color: $onyx;
-    border-radius: 50%;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    border-radius: 50%;
-    background: $onyx; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 20px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
-
 .from {
     // transform: translateX(75px);
     left: 24%;
@@ -39,8 +11,7 @@
 
 .searchbox {
     position: relative;
-    display: flex;
-    justify-content: center;
+    @include flex-center;
     margin: 0 auto;
 }
 
@@ -55,4 +26,9 @@
     transform: translate(-50%, -50%);
     background-color: rgb(240, 240, 240);
     // display: none;
+}
+
+.date-selectors {
+  margin: 1rem 0;
+  @include flex-center;
 }

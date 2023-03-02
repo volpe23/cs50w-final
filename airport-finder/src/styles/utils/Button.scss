@@ -10,10 +10,7 @@
     border: none;
     border-radius: 0.35rem;
     transition: all 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0.5rem;
+    @include flex-center;
     
 
 

@@ -6,7 +6,6 @@ export default function DateSelector({ onDateSelect }) {
     const [startDate, setStartDate] = useState(new Date())
 
     useEffect(() => {
-        console.log(startDate);
         onDateSelect(startDate);
     }, [startDate])
 

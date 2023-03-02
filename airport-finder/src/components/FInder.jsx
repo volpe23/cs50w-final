@@ -3,12 +3,12 @@ import Flights from './Flights';
 import AirportInput from './AirportInput';
 import Button from './utils/Button';
 import SearchIcon from '@mui/icons-material/Search';
-
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import DateSelector from './utils/Date';
 
 import '../styles/Finder.scss'
 
-export default function Finder({  }) {
+export default function Finder({}) {
     const [airports, setAirports] = useState(null);
     const [from, setFrom] = useState(null);
     const [destination, setDestination] = useState(null);
@@ -31,6 +31,7 @@ export default function Finder({  }) {
         let temp = from;
         setFrom(destination);
         setDestination(temp);
+        temp = 0
     }
 
     async function getFlights() {
@@ -51,7 +52,9 @@ export default function Finder({  }) {
                     setAirport={setFrom}
                     selectedAirport={from}
                 />
-                <button className='swap-button' onClick={() => swapDirections()}>==</button>
+                <button className='swap-button' onClick={() => swapDirections()}>
+                    <SyncAltIcon />
+                </button>
                 <AirportInput 
                     placeholder={'To'} 
                     airports={airports} 
@@ -62,10 +65,10 @@ export default function Finder({  }) {
                     <SearchIcon></SearchIcon>
                 </Button>
             </div>
-            <div>
-            <DateSelector onDateSelect={setStartDate} />
-            <DateSelector onDateSelect={setBackDate} />
-            </div>
+            {(from && destination) && <div className='date-selectors'>
+                <DateSelector onDateSelect={setStartDate} />
+                <DateSelector onDateSelect={setBackDate} />
+            </div>}
             {/* {(resultsShown)  && <AirportResults results={results} resultsShown={resultsShown} handleAirportSelection={handleAirportSelection}/>} */}
             <Flights flights={flights}/>
         </div>
@@ -73,9 +76,9 @@ export default function Finder({  }) {
 }
 
 function convertDate(inp) {
-    const date = new Date(`${inp}`)
+    const date = inp
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // add leading zero if month is a single digit
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`
 }
