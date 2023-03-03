@@ -8,10 +8,10 @@ import DateSelector from './utils/Date';
 
 import '../styles/Finder.scss'
 
-export default function Finder({from, destination, setFrom, setDestination}) {
+export default function Finder({from, destination, setFrom, setDestination, setStopovers}) {
     const [airports, setAirports] = useState(null);
 
-    const [flights, setFlights] = useState([exampleFlight]);
+    const [flights, setFlights] = useState([...exampleFlight]);
     const [startDate, setStartDate] = useState(null);
     const [backDate, setBackDate] = useState(null);
 
@@ -37,12 +37,11 @@ export default function Finder({from, destination, setFrom, setDestination}) {
         const response = await fetch(url);
         const data = await response.json();
         console.log(data.flights)
-        setFlights([exampleFlight, ...data.flights]);
+        setFlights([...exampleFlight, ...data.flights]);
     }
 
     return (
         <div className='search-div'>
-        <p>{from?.city}</p>
         <p>{from && `${from?.city} (${from?.iata_code})`} - {destination && `${destination.city} (${destination.iata_code})`}</p>
             <div className="searchbox">
                 <AirportInput 
@@ -68,8 +67,7 @@ export default function Finder({from, destination, setFrom, setDestination}) {
                 <DateSelector onDateSelect={setStartDate} />
                 <DateSelector onDateSelect={setBackDate} />
             </div>
-            {/* {(resultsShown)  && <AirportResults results={results} resultsShown={resultsShown} handleAirportSelection={handleAirportSelection}/>} */}
-            <Flights flights={flights}/>
+            <Flights flights={flights} setStopovers={setStopovers} airports={airports} />
         </div>
     )
 }
@@ -82,8 +80,15 @@ function convertDate(inp) {
     return `${year}-${month}-${day}`
 }
 
-const exampleFlight = {'id': '788164faf6eacacf9a5eaf8bab6d6b02', 
+const exampleFlight = [{'id': '788164faf6eacacf9a5eaf8bab6d6b02', 
+    'from' : 'RIX',
+    'destination' : 'FCO',
     'price': '€322', 
     'link': 'https://www.kayak.ie/book/flight?code=PdECIldOSL.FC9t5hE4q2rBDARZyLA7ng.33906.788164faf6eacacf9a5eaf8bab6d6b02&h=19c7db95e8a2&sub=E-1897db19a5e&payment=0.00:EUR:VA_D:Visa%20Debit:true&pageOrigin=F..RP.FE.M16', 
     'out': {'date': '22/9', 'times': '11:30–13:35', 'stopovers': ['direct', ''], 'duration': '3h 05m'}, 
-    'in': {'date': '4/10', 'times': '14:20–18:20', 'stopovers': ['direct', ''], 'duration': '3h 00m'}}
+    'in': {'date': '4/10', 'times': '14:20–18:20', 'stopovers': ['direct', ''], 'duration': '3h 00m'}},
+    {'id': '00243f92994f2b7789a59817e6d0e485', 'from': 'RIX', 'destination': 'MTY', 'price': '€2,346', 'link': 'https://www.kayak.ie/book/flight?code=bSDCJcyFfF.SraQfAsTxU_BDARZyLA7ng.249075.00243f92994f2b7789a59817e6d0e485&h=c02ccfd00965&sub=E-1ab456a7192&payment=0.00:EUR:VA_D:Visa%20Debit:true&pageOrigin=F..RP.FE.M5', 'out': {'date': '4/3', 'times': '09:25–22:30', 'stopovers': ['2 stops', 'HEL, DFW'], 'duration': '21h 05m'}, 'in': {'date': '5/3', 'times': '10:58–17:35+1', 'stopovers': ['2 stops', 
+    'DFW, HEL'], 'duration': '22h 37m'}}
+]
+
+    

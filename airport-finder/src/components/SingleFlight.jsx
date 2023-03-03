@@ -13,6 +13,7 @@ export default function SingleFlight({ flightInfo }) {
             <div className="single-flight__stopovers">
                 <p>{stopovers[0]}</p>
                 <div>{stopovers.slice(1).map((stop, i) => <span key={i}>{stop}</span>)}</div>
+                <span>{stopovers.slice(1)}</span>
             </div>
             <div className='single-flight__duration'>
                 {duration}

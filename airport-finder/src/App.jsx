@@ -7,12 +7,13 @@ function App() {
 
   const [from, setFrom] = useState(null);
   const [destination, setDestination] = useState(null);
+  const [stopovers, setStopovers] = useState(null);
 
 
   return (
     <main className="main">
-      <Finder from={from} destination={destination} setFrom={setFrom} setDestination={setDestination}/>
-      <Map from={from} destination={destination}>
+      <Finder from={from} destination={destination} setFrom={setFrom} setDestination={setDestination} setStopovers={setStopovers} />
+      <Map from={from} destination={destination} stopovers={stopovers} >
 
       </Map>
     </main>
