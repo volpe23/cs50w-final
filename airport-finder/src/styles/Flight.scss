@@ -1,14 +1,20 @@
-// @import './main.scss';
+@import './main.scss';
 
 .flight {
-    background-color: white;
+    background-color: $baby-powder;
     border-radius: 10px;
-    width: 100%;
+    width: 600px;
     display: grid;
-    grid-template-columns: 80% 1fr;
-    height: 140px;
+    grid-template-columns: 75% 1fr;
+    min-height: 150px;
     margin: 1rem 0;
     padding: 1rem;
+    box-shadow: 0px 4px 7px 0px $light-grey-shadow;
+    @include transition;
+
+    &:hover{
+        box-shadow: 0px 3px 10px 1px $grey;
+    }
 }
 
 .flight__content {
@@ -20,8 +26,13 @@
     gap: 10px;
 }
 
-.flight__price {
+.flight__info {
     align-self: center;
     justify-self: center;
     grid-column: 2 / -1;
+    @include flex-center;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
 }
+

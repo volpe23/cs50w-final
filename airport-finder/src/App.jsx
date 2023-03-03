@@ -1,26 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Finder from './components/FInder'
-import Flights from './components/Flights'
+import Map from './components/Map'
 import './styles/App.scss'
 
 function App() {
 
-  const [airports, setAirports] = useState([]);
+  const [from, setFrom] = useState(null);
+  const [destination, setDestination] = useState(null);
+  const [stopovers, setStopovers] = useState(null);
 
-
-  const getAirports = async () => {
-    const airports = await fetch('https://raw.githubusercontent.com/algolia/datasets/master/airports/airports.json');
-    const results = await airports.json();
-    setAirports(results)
-}
-
-  useEffect(() => {
-    getAirports()
-  })
 
   return (
     <main className="main">
-      <Finder airports={airports} />
+      <Finder from={from} destination={destination} setFrom={setFrom} setDestination={setDestination} setStopovers={setStopovers} />
+      <Map from={from} destination={destination} stopovers={stopovers} >
+
+      </Map>
     </main>
   )
 }

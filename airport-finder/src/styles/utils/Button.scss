@@ -1,0 +1,25 @@
+@import '../main.scss';
+
+.btn {
+    cursor: pointer;
+    background: linear-gradient(110deg, $pigment-green, $forest-green);
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-weight: $fw-normal;
+    color: white;
+    border: none;
+    border-radius: 0.35rem;
+    transition: all 0.2s ease-in-out;
+    @include flex-center;
+    
+
+
+    &:hover {
+        filter: brightness(105%);
+    }
+}
+
+.btn-round {
+    border-radius: 50%!important;
+    aspect-ratio: 1 / 1;
+}

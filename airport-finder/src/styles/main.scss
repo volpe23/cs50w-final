@@ -1,8 +1,25 @@
 $red: #e94f37;
 $onyx: #393e41;
 $light-cyan: #d4f5f5;
-$grey: #8C9A9E;
+$grey: #a3aaac;
 $jet: #363434;
 $bg-color: #f1f2f8;
+$light-grey-shadow: #c7c7c7;
+$light-blue: #39A9DB;
+$dodger-blue: #0197F6;
+$pigment-green: #2BA84A;
+$forest-green: #248232;
+$baby-powder: #FCFFFC;
+$airport-input-width: 200px;
 
+$fw-normal: 400;
 
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin transition {
+    transition: all 0.2s ease-in-out;
+}

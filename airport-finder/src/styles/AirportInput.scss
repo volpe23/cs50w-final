@@ -1,0 +1,31 @@
+@import './main.scss';
+
+
+
+.finder {
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    width: $airport-input-width;
+}
+
+.input-results:first-of-type input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-results:last-of-type input {
+    
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.search-div {
+    position: relative;
+    max-width: 600px;
+
+    >p {
+        text-align: center;
+        margin: 1rem 0;
+    }
+}

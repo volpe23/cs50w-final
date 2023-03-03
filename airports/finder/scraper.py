@@ -8,10 +8,10 @@ import time
 
 PATH = 'C:/Users/lv-andrisr/OneDrive - TEKNOS GROUP OY/Desktop/test/chromedriver.exe'
 
-def launch_browser(from_airport, destination):
+def launch_browser(from_airport, destination, start_date, back_date):
     # skyscanner url
     # https://www.skyscanner.net/transport/flights/rix/mty/230930/231007/?adultsv2=2&cabinclass=economy
-    url = f'https://www.kayak.ie/flights/{from_airport}-{destination}/2023-09-24-flexible-3days/2023-10-03-flexible-3days/2adults?sort=bestflight_a'
+    url = f'https://www.kayak.ie/flights/{from_airport}-{destination}/{start_date}-flexible-3days/{back_date}-flexible-3days/2adults?sort=bestflight_a'
     options = Options()
     options.add_experimental_option('detach', True)
     # options.headless = True
@@ -34,30 +34,37 @@ def launch_browser(from_airport, destination):
     try:
         # //*[@id="rs5E-info"]/ol
         results = driver.find_element(By.CLASS_NAME, 'resultsList')
-        xp_offers = './div/div/*'
+        xp_offers = './/div[@data-resultid]'
         offers = results.find_elements(By.XPATH, xp_offers)
         for offer in offers:
+            offer_id = offer.get_attribute('data-resultid')
             xp_price = './div[2]/div/div/div[2]/div/div[2]/div/div[1]/a/div/div/div[1]/div[1]'
             price = offer.find_element(By.XPATH, xp_price).text
-            xp_flights = './div[2]/div/div/div[1]/div[2]/div/ol'
+
+            xp_link = f'.//a[@role="link"]'
+            link = offer.find_element(By.XPATH, xp_link).get_attribute('href')
+
+            xp_flights = './/ol'
             flights = offer.find_element(By.XPATH, xp_flights).find_elements(By.TAG_NAME, 'li')
-            obj = {'price' : price, 'out' : {}, 'in' : {}}
+            obj = {'id' : offer_id, 'from' : from_airport, 'destination' : destination, 'price' : price, 'link' : link, 'out' : {}, 'in' : {}}
             for i, flight in enumerate(flights):
-                flight_info = flight.find_element(By.XPATH, './div/div')
+                
+                flight_info_class = "mod-variant-large"
+                xp_flight_info = f'.//div[contains(@class, {flight_info_class})]'
+                flight_info = flight.find_element(By.XPATH, f'.//div[contains(@class, {xp_flight_info})]')
+                
                 date = flight_info.find_element(By.XPATH, './div[2]/div/div[2]').text
                 times = flight_info.find_element(By.XPATH, './div[3]').text
                 stops = flight_info.find_element(By.XPATH, './div[4]')
                 stop_count = stops.find_elements(By.XPATH, './*')
                 duration = flight_info.find_element(By.XPATH, './div[5]').text
-                # for stop in stop_count:
-                #     stopover = stop.get_attribute('title')
                 info = {'date' : date, 'times' : times.split('\n')[0], 'stopovers' : [stopover.text for stopover in stop_count], 'duration' : duration}
                 
                 if i == 0:
                     obj['out'] = info
                 else:
                     obj['in'] = info
-                print(obj)
+            print(obj)
             scraped.append(obj)
         return scraped
         
