@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import Flights from './Flights';
 import AirportInput from './AirportInput';
 import Button from './utils/Button';
@@ -7,23 +7,20 @@ import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import DateSelector from './utils/Date';
 
 import '../styles/Finder.scss'
+import { FromDestinationContext } from '../contexts/FromDestinationContext';
 
-export default function Finder({from, destination, setFrom, setDestination, setStopovers}) {
-    const [airports, setAirports] = useState(null);
+export default function Finder({}) {
+    
+    const { fromAirport, destinationAirport } = useContext(FromDestinationContext)
+
+    const [from, setFrom] = fromAirport;
+    const [destination, setDestination] = destinationAirport;
 
     const [flights, setFlights] = useState([...exampleFlight]);
     const [startDate, setStartDate] = useState(null);
     const [backDate, setBackDate] = useState(null);
 
-    const getAirports = async () => {
-        const airports = await fetch('https://raw.githubusercontent.com/algolia/datasets/master/airports/airports.json');
-        const results = await airports.json();
-        setAirports(results)
-    }
 
-    useEffect(() => {
-        getAirports()
-    }, [])
 
     const swapDirections = () => {
         let temp = from;
@@ -42,11 +39,10 @@ export default function Finder({from, destination, setFrom, setDestination, setS
 
     return (
         <div className='search-div'>
-        <p>{from && `${from?.city} (${from?.iata_code})`} - {destination && `${destination.city} (${destination.iata_code})`}</p>
             <div className="searchbox">
+                {/* <p>{from && `${from?.city} (${from?.iata_code})`} - {destination && `${destination.city} (${destination.iata_code})`}</p> */}
                 <AirportInput 
                     placeholder={'From'}
-                    airports={airports}
                     setAirport={setFrom}
                     selectedAirport={from}
                 />
@@ -55,7 +51,6 @@ export default function Finder({from, destination, setFrom, setDestination, setS
                 </button> */}
                 <AirportInput 
                     placeholder={'To'} 
-                    airports={airports} 
                     setAirport={setDestination} 
                     selectedAirport={destination}
                 />
@@ -67,7 +62,7 @@ export default function Finder({from, destination, setFrom, setDestination, setS
                 <DateSelector onDateSelect={setStartDate} />
                 <DateSelector onDateSelect={setBackDate} />
             </div>
-            <Flights flights={flights} setStopovers={setStopovers} airports={airports} />
+            <Flights flights={flights} />
         </div>
     )
 }

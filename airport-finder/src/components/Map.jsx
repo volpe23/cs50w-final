@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import ReactMap, { Marker, Popup, Layer, Source } from 'react-map-gl';
 import RoomIcon from '@mui/icons-material/Room';
 import WebMercatorViewport from 'viewport-mercator-project';
 import { maxBy, minBy } from 'lodash';
 import '../styles/Map.scss';
+import { FromDestinationContext } from '../contexts/FromDestinationContext';
 
 
 export default function Map({ from, destination, stopovers }) {
@@ -73,7 +74,7 @@ export default function Map({ from, destination, stopovers }) {
                 {stopovers && stopovers.map(stop => {
                     return <Marker key={stop.iata_code} longitude={stop._geoloc.lng} latitude={stop._geoloc.lat} anchor="center"></Marker>
                 })}
-                {destination && <Marker longitude={destination._geoloc.lng} latitude={destination._geoloc.lat} anchor="center" >
+                {destination && <Marker longitude={destination._geoloc.lng} latitude={destination._geoloc.lat} anchor="bottom" >
                     <RoomIcon className='marker__destination' ></RoomIcon>
                     <Popup longitude={destination._geoloc.lng} latitude={destination._geoloc.lat}
                         anchor="bottom"
@@ -104,7 +105,6 @@ const getBounds = (markers) => {
 
     const southWest = [minLng, minLat];
     const northEast = [maxLng, maxLat];
-    // console.log(southWest, northEast)
     return [southWest, northEast]
 }
 

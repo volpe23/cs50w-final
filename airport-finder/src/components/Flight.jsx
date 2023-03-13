@@ -1,15 +1,17 @@
+import { useContext } from "react"
 import SingleFlight from "./SingleFlight"
 import Button from "./utils/Button"
+import { AirportContext } from "../App"
+import { FromDestinationContext } from "../contexts/FromDestinationContext"
 
-export default function Flight({ flight, setStopovers, airports }) {
-    
-    const handleStopovers = (stopovers) => {
-        // console.log(stopovers[0].split(','))
-        const stopoverArr = stopovers[0].split(',').map(stop => {
+export default function Flight({ flight,  }) {
+    const airports = useContext(AirportContext)
+    const { stopovers } = useContext(FromDestinationContext)
+    const handleStopovers = (stops) => {
+        const stopoverArr = stops[0].split(',').map(stop => {
             return airports.find(airport => airport.iata_code === stop.trim())
         })
-        // console.log(stopoverArr)
-        setStopovers(stopoverArr);
+        stopovers.setStopovers(stopoverArr);
     }
 
     return (
