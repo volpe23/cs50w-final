@@ -10,7 +10,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'username']
+    REQUIRED_FIELDS = ['email']
     
     def __str__(self):
         return f"{self.username}, {self.email}"
