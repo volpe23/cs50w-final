@@ -16,10 +16,7 @@ function App() {
 		<main className="main">
 		<Layout>
 			<Routes>
-				<Route exact path='/' component={Home}/>
-				<Route exact path='/login'/>
-				<Route exact path='/logout'/>
-				<Route exact path='/register'/>
+				<Route path='/' element={<Home />}/>
 			</Routes>
 		</Layout>
 		</main>

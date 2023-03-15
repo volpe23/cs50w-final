@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import SingleFlight from "./SingleFlight"
 import Button from "./utils/Button"
-import { AirportContext } from "../App"
+import { AirportContext } from "./Layout"
 import { FromDestinationContext } from "../contexts/FromDestinationContext"
 
 export default function Flight({ flight,  }) {

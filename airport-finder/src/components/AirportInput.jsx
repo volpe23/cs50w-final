@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useContext } from "react";
 import AirportResults from "./AirportResults";
 import '../styles/AirportInput.scss';
-import { AirportContext } from "../App";
+import { AirportContext } from "./Layout";
 
 export default function AirportInput ({ placeholder, setAirport, selectedAirport }) {
     const airports = useContext(AirportContext)

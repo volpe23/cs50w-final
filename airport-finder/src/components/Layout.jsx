@@ -5,9 +5,7 @@ export const AirportContext = createContext(null);
 
 export default function Layout(props) {
 
-    const [from, setFrom] = useState(null);
-    const [destination, setDestination] = useState(null);
-    const [stopovers, setStopovers] = useState(null);
+    
     const [airports, setAirports] = useState(null);
 
     const getAirports = async () => {
