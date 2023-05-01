@@ -22,7 +22,7 @@ urlpatterns = [
     # path("", include("finder.urls")),
     path('admin/', admin.site.urls),
     path('backend/', include('finder.urls')),
-    re_path(r'^.*', TemplateView.as_view(template_name='finder/layout.html')),
+    # re_path(r'^.*', TemplateView.as_view(template_name='finder/layout.html')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt'))
 ]

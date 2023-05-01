@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'finder',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'djoser'
+    'djoser',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -55,9 +56,11 @@ MIDDLEWARE = [
 
 # Adding authentication JWT class to REST framework
 REST_FRAMEWORK = {
-     'DEFAULT_AUTHENTICATION_CLASSES': [
+     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-      ],
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+     ),
 }
 
 
@@ -68,6 +71,9 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_TOKEN_CLASSES': (
+       'rest_framework_simplejwt.tokens.AccessToken',
+   )
 }
 
 DJOSER = {
@@ -155,13 +161,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = False
 
 ALLOWED_HOSTS = ['*']
 
 # Needed for 'debug' to be available inside templates.
 # https://docs.djangoproject.com/en/3.2/ref/templates/api/#django-template-context-processors-debug
-INTERNAL_IPS = ['127.0.0.1']
+# INTERNAL_IPS = ['127.0.0.1']
 
 # Vite App Dir: point it to the folder your vite app is in.
 VITE_APP_DIR = BASE_DIR / "src"
@@ -176,6 +182,6 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     VITE_APP_DIR / "dist",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT = BASE_DIR / "staticfiles"
 
 AUTH_USER_MODEL = 'finder.UserAccount'
