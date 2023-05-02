@@ -2,6 +2,8 @@ import { useState } from "react"
 import Button from "../components/utils/Button"
 import axios from "axios";
 
+import './styles/Authentication.scss';
+
 export default function Register() {
 
     const [formData, setFormData] = useState({
@@ -37,30 +39,33 @@ export default function Register() {
 
     return (
         
-        <form onSubmit={onUserRegister}>
+        <form className="auth-form" onSubmit={onUserRegister}>
             <div>
+                <h3>Sign up</h3>
+            </div>
+            <div className="form-group">
                 <label htmlFor="email_field">Email</label>
                 <input id="email_field" name="email" type="email"
                     onChange={onChange}
                 />
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="username_field">Username</label>
                 <input id="username_field" name="username" type="username" onChange={onChange}/>
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="firstName_field">First Name</label>
                 <input id="firstName_field" name="first_name" type="text" onChange={onChange}/>
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="lastName_field">Last Name</label>
                 <input id="lastName_field" name="last_name" type="text" onChange={onChange}/>
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="password_field">Password</label>
                 <input id="password_field" name="password" type="password" onChange={onChange}/>
             </div>
-            <div>
+            <div className="form-group">
                 <label htmlFor="re_password_field">Repeat password</label>
                 <input id="re_password_field" name="re_password" type="password" onChange={onChange}/>
             </div>

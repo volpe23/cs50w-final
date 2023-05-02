@@ -6,11 +6,12 @@ export default function AuthProvider(props) {
 
     const [authState, setAuthState] = useState({
         id : '',
-        
+        access: '',
+        refresh: ''
     })
 
     return (
-        <AuthContext.Provider>
+        <AuthContext.Provider value={[authState, setAuthState]}>
             {props.children}
         </AuthContext.Provider>
     )

@@ -3,28 +3,30 @@ import { Marker } from 'react-map-gl';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Navbar from './components/Navbar';
+import AuthProvider from './GlobalStates';
 import './styles/App.scss';
 
 import Home from './components/Home';
 import Register from './authentication/Register';
+import Login from './authentication/Login';
 
 
 function App() {
 
 
 	return (
-		<>
-		<Navbar />
-		<main className="main">
-		<Layout>
-			<Routes>
-				<Route path='/' element={<Home />}/>
-				<Route path='/register' element={<Register />} />
-			</Routes>
-		</Layout>
-		</main>
-
-		</>
+		<AuthProvider>
+			<Navbar />
+			<main className="main">
+				<Layout>
+					<Routes>
+						<Route path='/' element={<Home />}/>
+						<Route path='/register' element={<Register />} />
+						<Route path='/login' element={<Login />} />
+					</Routes>
+				</Layout>
+			</main>
+		</AuthProvider>
 	)
 	}
 
