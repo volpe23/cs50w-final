@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext } from "react";
-import Navbar from "./Navbar";
 
 export const AirportContext = createContext(null);
 
@@ -19,9 +18,10 @@ export default function Layout(props) {
     }, [])
 
     return (
-        <AirportContext.Provider value={airports}>
-            <Navbar />
-            {props.children}
-        </AirportContext.Provider>
+        <>
+            <AirportContext.Provider value={airports}>
+                {props.children}
+            </AirportContext.Provider>
+        </>
     )
 }

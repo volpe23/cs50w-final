@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import '../styles/Navbar.scss';
 
 export default function Navbar() {
 
     return (
-        <nav>
-            <ul>
+        <nav className="navbar">
+            <ul className="navbar-list">
                 <li>
                     <Link to='/'>Home</Link>
                 </li>

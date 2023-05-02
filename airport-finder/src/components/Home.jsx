@@ -10,10 +10,12 @@ export default function Home() {
     const [stopovers, setStopovers] = useState(null);
 
     return (
-        <FromDestinationContext.Provider value={{fromAirport: [from, setFrom], destinationAirport: [destination, setDestination], stopovers: {stopovers, setStopovers}}}>
-                <Finder />
-            <Map from={from} destination={destination} stopovers={stopovers}>
-            </Map>
-		</FromDestinationContext.Provider>
+
+            <FromDestinationContext.Provider value={{fromAirport: [from, setFrom], destinationAirport: [destination, setDestination], stopovers: {stopovers, setStopovers}}}>
+                    <Finder />
+                <Map from={from} destination={destination} stopovers={stopovers}>
+                </Map>
+            </FromDestinationContext.Provider>
+        
     )
 }

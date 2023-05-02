@@ -1,0 +1,33 @@
+@import './main.scss';
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+}
+
+.navbar-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    list-style-type: none;    
+
+    li {
+        padding: 10px 12px;
+        border-radius: 20px;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            background-color: $dodger-blue;
+            color: rgb(241, 239, 239);
+        }
+        
+        a {
+            color: inherit
+        }
+    }
+}
