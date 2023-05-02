@@ -6,10 +6,10 @@ export default function Navbar() {
         <nav>
             <ul>
                 <li>
-                    <Link>Home</Link>
+                    <Link to='/'>Home</Link>
                 </li>
                 <li>
-                    <Link>Register</Link>
+                    <Link to='/register'>Register</Link>
                 </li>
                 <li>
                     <Link>Login</Link>

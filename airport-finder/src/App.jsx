@@ -6,7 +6,7 @@ import Layout from './components/Layout';
 import './styles/App.scss';
 
 import Home from './components/Home';
-
+import Register from './authentication/Register';
 
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
 		<Layout>
 			<Routes>
 				<Route path='/' element={<Home />}/>
+				<Route path='/register' element={<Register />} />
 			</Routes>
 		</Layout>
 		</main>

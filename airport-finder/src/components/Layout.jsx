@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from "react";
-import Navbar from "./Navbar"
+import Navbar from "./Navbar";
 
 export const AirportContext = createContext(null);
 
