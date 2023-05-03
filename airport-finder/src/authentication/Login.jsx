@@ -8,7 +8,7 @@ import './styles/Authentication.scss';
 
 export default function Login() {
 
-    const [authState, setAuthState] = useContext(AuthContext);
+    const [authTokens, setAuthTokens] = useContext(AuthContext);
 
     const [formData, setFromData] = useState({
         email: '',
@@ -30,11 +30,11 @@ export default function Login() {
         }
         try {
             const res = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/auth/jwt/create/`, body, config);
-            setAuthState({
-                id: 'lol',
+            setAuthTokens({
                 access: res.data.access, 
                 refresh: res.data.refresh
             })
+            localStorage.setItem('tokens', JSON.stringify(res.data));
         } catch (err) {
             console.log(err)
         }
