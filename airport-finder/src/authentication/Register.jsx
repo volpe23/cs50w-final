@@ -1,11 +1,12 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import Button from "../components/utils/Button"
 import axios from "axios";
 
 import './styles/Authentication.scss';
 
 export default function Register() {
-
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -31,7 +32,7 @@ export default function Register() {
                     'Content-Type' : 'application/json'
                 }
             })
-            console.log(data.statusText);
+            navigate('/login');
         } catch (err) {
             console.log(err)
         }
