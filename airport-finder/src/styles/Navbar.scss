@@ -11,37 +11,72 @@
 .navbar-list {
     max-width: $xl-screen-width;
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
     gap: 1rem;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1rem;
     list-style-type: none;    
 
     li {
-        padding: 10px 12px;
-        border-radius: 20px;
+        cursor: pointer;
         transition: all 0.2s ease-in-out;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+    }
+
+    .nav-item {
+        padding: 10px 12px;
         &:hover {
-            background-color: $dodger-blue;
+            background-color: $light-blue;
             color: rgb(241, 239, 239);
         }
-        
-        a {
-            color: inherit
-        }
+      
     }
 }
 
 .navbar-end,.navbar-start{
     display: flex;
+    gap: 1rem;
 }
 
 .navbar-start {
     margin: 0;
+    justify-self: center;
 }
 
 .navbar-end {
     margin-left: auto;
+    font-weight: 500;
+}
+
+.nav-btn {
+    color: white;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 0.8rem 1.2rem;
+
+    &:hover {
+        background-color: $primary-blue-hover;
+    }
+}
+
+.nav-btn-primary {
+    background-color: $primary-blue;
+    
+}
+
+.btn-outline {
+    border: 1px solid $primary-blue;
+    color: $primary-blue;
+
+    &:hover {
+        color: white;
+    }
+}
+
+li > a {
+    color: inherit;
 }

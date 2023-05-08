@@ -23,22 +23,22 @@ export default function Navbar() {
         <ul className="navbar-list">
             <img src={logo} />
           <div class="navbar-start">
-              <li>
+              <li className="nav-item">
                 <Link to="/">Home</Link>
               </li>
           </div>
           <div className="navbar-end">
             {!userAccount ? (
               <>
-                <li>
+                <li className="nav-btn nav-btn-primary">
                   <Link to="/register">Register</Link>
                 </li>
-                <li>
+                <li className="nav-btn btn-outline">
                   <Link to="/login">Login</Link>
                 </li>
               </>
             ) : (
-              <li>
+              <li className="nav-btn btn-outline">
                 <Link onClick={logout}>Logout</Link>
               </li>
             )}
