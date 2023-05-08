@@ -37,6 +37,7 @@ export default function Login() {
             if (res.status === 200) {
                 setAuthTokens(res.data);
                 localStorage.setItem('tokens', JSON.stringify(res.data));
+                
                 const user = await getUser(res.data.access);
                 setUserAccount(user);
                 navigate('/');
@@ -69,7 +70,11 @@ export default function Login() {
 }
 
 
+
 const getUser = async (access) => {
+    
+    
+    
 
     const user = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/auth/users/me/`, {
         headers: {

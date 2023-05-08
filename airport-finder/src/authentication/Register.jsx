@@ -16,8 +16,6 @@ export default function Register() {
         re_password: ''
     })
 
-    const { email, username, firstName, lastName, password, re_password } = formData;
-
     const onChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
     }
