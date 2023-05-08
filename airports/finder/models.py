@@ -14,6 +14,7 @@ class UserAccountManager(BaseUserManager):
         user.save()
 
         return user
+    
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=255)
@@ -28,3 +29,9 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return f"{self.email}"
+    
+    # def set_password(self, raw_password):
+    #     self.password = raw_password
+        
+    # def check_password(self, raw_password):
+    #     return self.password == raw_password

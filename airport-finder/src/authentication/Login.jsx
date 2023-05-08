@@ -35,6 +35,7 @@ export default function Login() {
                 access: res.data.access, 
                 refresh: res.data.refresh
             })
+            console.log(res);
         } catch (err) {
             console.log(err)
         }

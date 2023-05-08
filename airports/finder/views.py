@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from bs4 import BeautifulSoup as bs
 from . import scraper
+from .models import *
+
 
 # Create your views here.
 def index(request):
