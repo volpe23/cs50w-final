@@ -10,7 +10,7 @@ const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL
 
 export default function Login() {
     const navigate = useNavigate();
-    const { setAuthTokens, setUserAccount } = useContext(AuthContext);
+    const { setAuthTokens, setUserAccount, authTokens } = useContext(AuthContext);
 
     const [isError, setIsError] = useState(false)
 
@@ -41,7 +41,7 @@ export default function Login() {
             const user = await getUser(res.data.access);
             setUserAccount(user);
             navigate('/');
-            
+            console.log(authTokens, localStorage.getItem('tokens'));
         } catch (err) {
             console.log(err);
             setIsError(err.response.data.detail)
@@ -71,7 +71,7 @@ export default function Login() {
 
 
 
-const getUser = async (access) => {
+export const getUser = async (access) => {
 
     const user = await axios.get(`${BASE_URL}/auth/users/me/`, {
         headers: {
