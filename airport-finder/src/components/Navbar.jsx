@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from '../GlobalStates';
 import '../styles/Navbar.scss';
+import logo from '../imgs/icons8-airplane-96.png';
 
 
 export default function Navbar() {
@@ -18,26 +19,32 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar">
-            <ul className="navbar-list">
+      <nav className="navbar">
+        <ul className="navbar-list">
+            <img src={logo} />
+          <div class="navbar-start">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+          </div>
+          <div className="navbar-end">
+            {!userAccount ? (
+              <>
                 <li>
-                    <Link to='/'>Home</Link>
+                  <Link to="/register">Register</Link>
                 </li>
-                {!userAccount ? 
-                <>
-                  <li>
-                    <Link to='/register'>Register</Link>
+                <li>
+                  <Link to="/login">Login</Link>
                 </li>
-                <li>
-                    <Link to='/login'>Login</Link>
-                </li>  
-                </>
-                 :
-                <li>
-                    <Link onClick={logout}>Logout</Link>
-                </li>}
-            </ul>
-        </nav>
-    )
+              </>
+            ) : (
+              <li>
+                <Link onClick={logout}>Logout</Link>
+              </li>
+            )}
+          </div>
+        </ul>
+      </nav>
+    );
 }
 

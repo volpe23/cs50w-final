@@ -4,10 +4,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider(props) {
 
-    const [authTokens, setAuthTokens] = useState({
-        access: '',
-        refresh: ''
-    });
+    const [authTokens, setAuthTokens] = useState(null);
     const [userAccount, setUserAccount] = useState(null);
 
     return (

@@ -1,15 +1,16 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../GlobalStates';
+import useAxios from '../hooks/useAxios';
 import Button from '../components/utils/Button';
 import axios from 'axios';
-import { AuthContext } from '../GlobalStates';
 import './styles/Authentication.scss';
 
-
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL
 
 export default function Login() {
     const navigate = useNavigate();
-    const {authTokens, setAuthTokens, setUserAccount, userAccount} = useContext(AuthContext);
+    const { setAuthTokens, setUserAccount } = useContext(AuthContext);
 
     const [isError, setIsError] = useState(false)
 
@@ -32,16 +33,15 @@ export default function Login() {
             }
         }
         try {
-            const res = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/auth/jwt/create/`, body, config);
+            const res = await axios.post(`${BASE_URL}/auth/jwt/create/`, body, config);
             console.log(res)
-            if (res.status === 200) {
-                setAuthTokens(res.data);
-                localStorage.setItem('tokens', JSON.stringify(res.data));
-                
-                const user = await getUser(res.data.access);
-                setUserAccount(user);
-                navigate('/');
-            }
+            setAuthTokens(res.data);
+            localStorage.setItem('tokens', JSON.stringify(res.data));
+            
+            const user = await getUser(res.data.access);
+            setUserAccount(user);
+            navigate('/');
+            
         } catch (err) {
             console.log(err);
             setIsError(err.response.data.detail)
@@ -72,11 +72,8 @@ export default function Login() {
 
 
 const getUser = async (access) => {
-    
-    
-    
 
-    const user = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/auth/users/me/`, {
+    const user = await axios.get(`${BASE_URL}/auth/users/me/`, {
         headers: {
             'Authorization' : `JWT ${access}`,
             'Content-Type': 'application/json',

@@ -9,6 +9,8 @@
 }
 
 .navbar-list {
+    max-width: $xl-screen-width;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,4 +32,16 @@
             color: inherit
         }
     }
+}
+
+.navbar-end,.navbar-start{
+    display: flex;
+}
+
+.navbar-start {
+    margin: 0;
+}
+
+.navbar-end {
+    margin-left: auto;
 }

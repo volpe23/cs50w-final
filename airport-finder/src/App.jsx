@@ -9,10 +9,10 @@ import './styles/App.scss';
 import Home from './components/Home';
 import Register from './authentication/Register';
 import Login from './authentication/Login';
+import PrivateRoute from './authentication/PrivateRoute';
 
 
 function App() {
-
 
 	return (
 		<AuthProvider>
@@ -20,7 +20,11 @@ function App() {
 			<main className="main">
 				<Layout>
 					<Routes>
-						<Route path='/' element={<Home />}/>
+						<Route path='/' element={
+							<PrivateRoute>
+								<Home />
+							</PrivateRoute>
+						}/>
 						<Route path='/register' element={<Register />} />
 						<Route path='/login' element={<Login />} />
 					</Routes>

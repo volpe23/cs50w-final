@@ -8,6 +8,8 @@
 body {
   background-color: $bg-color;
   min-height: 100vh;
+  max-width: $xl-screen-width;
+  margin: 0 auto;
 
 }
 .main {
