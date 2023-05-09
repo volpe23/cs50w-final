@@ -9,20 +9,21 @@ export default function Navbar() {
 
     const navigate = useNavigate()
 
-    const { userAccount, setUserAccount, setAuthTokens } = useContext(AuthContext);
+    const { userAccount, authTokens, setUserAccount, setAuthTokens, user } = useContext(AuthContext);
     const logout = () => {
-        navigate('/login');
-        setUserAccount(null);
-        setAuthTokens(null);
-        localStorage.removeItem('tokens');
+      localStorage.removeItem('tokens');
+      setUserAccount(null);
+      setAuthTokens(null);
+      navigate('/login');
         console.log("Logged out")
     }
 
     return (
       <nav className="navbar">
+      <p>{`${userAccount?.username}, ${authTokens?.access}, ${user}`}</p>
         <ul className="navbar-list">
             <img src={logo} />
-          <div class="navbar-start">
+          <div className="navbar-start">
               <li className="nav-item">
                 <Link to="/">Home</Link>
               </li>
@@ -39,7 +40,7 @@ export default function Navbar() {
               </>
             ) : (
               <li className="nav-btn btn-outline">
-                <Link onClick={logout}>Logout</Link>
+                <Link onClick={() => logout()}>Logout</Link>
               </li>
             )}
           </div>
