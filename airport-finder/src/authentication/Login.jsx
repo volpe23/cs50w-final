@@ -1,16 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../GlobalStates';
-import useAxios from '../hooks/useAxios';
-import Button from '../components/utils/Button';
+import useAuth from '../hooks/useAuth';
 import axios from 'axios';
+
 import './styles/Authentication.scss';
+import Button from '../components/utils/Button';
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL
 
 export default function Login() {
     const navigate = useNavigate();
-    const { authTokens, login, userAccount } = useContext(AuthContext);
+    const { authTokens, login, userAccount } = useAuth()
 
     const [isError, setIsError] = useState(false)
 
