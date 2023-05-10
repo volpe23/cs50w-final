@@ -1,18 +1,18 @@
-import { Route, useNavigate } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { AuthContext } from "../GlobalStates";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
-const PrivateRoute = ({children}) => {
-    const navigate = useNavigate()
-    const { authTokens, userAccount } = useContext(AuthContext);
+const PrivateRoute = () => {
+    const { authTokens } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (!authTokens && !userAccount) navigate('/login');
-
-    }, [])
+    
 
 
-    return children;
+    return (
+        authTokens
+            ? <Outlet />
+            : <Navigate to='/login' replace/>
+    )
 }
 
 export default PrivateRoute;

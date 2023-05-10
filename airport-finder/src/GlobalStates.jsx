@@ -24,11 +24,6 @@ export default function AuthProvider(props) {
       []
     );
 
-    const user = useMemo(() => {
-        userAccount,
-        login
-    }, [login, userAccount])
-
     useEffect(() => {
         if (localStorage.getItem('tokens')) {
             const tokens = JSON.parse(localStorage.getItem('tokens'));
@@ -56,7 +51,7 @@ export default function AuthProvider(props) {
     }
 
     return (
-        <AuthContext.Provider value={{authTokens, userAccount, login, user}}>
+        <AuthContext.Provider value={{authTokens, userAccount, login}}>
             {props.children}
         </AuthContext.Provider>
     )
