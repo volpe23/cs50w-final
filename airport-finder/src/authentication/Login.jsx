@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import axios from 'axios';
+import axios from '../hooks/useAxios';
 
 import './styles/Authentication.scss';
 import Button from '../components/utils/Button';
-
-const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL
 
 export default function Login() {
     const navigate = useNavigate();
@@ -27,21 +25,16 @@ export default function Login() {
         e.preventDefault();
 
         const body = JSON.stringify(formData);
-        const config = {
-            headers: {
-                'Content-type': 'application/json'
-            }
-        }
+        
         try {
-            const res = await axios.post(`${BASE_URL}/auth/jwt/create/`, body, config);
+            const res = await axios.post(`/auth/jwt/create/`, body);
             console.log(res)
-            localStorage.setItem('tokens', JSON.stringify(res.data));
+            localStorage.setItem('tokens', JSON.stringify(res?.data));
             login(res.data)
         } catch (err) {
             console.log(err);
             setIsError(err.response.data.detail)
         }
-        // console.log(authTokens, userAccount)
     }
 
     return (
