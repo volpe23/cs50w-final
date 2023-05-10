@@ -16,9 +16,11 @@ const useRefreshToken = () => {
     const refresh = async () => {
         console.log(body)
         try {
-            const response = await axios.post('/auth/jwt/refresh/', JSON.stringify(body));
-
-            console.log(response);
+            const res = await axios.post('/auth/jwt/refresh/', JSON.stringify(body));
+            const newTokens = res?.data;
+            localStorage.setItem('tokens', JSON.stringify(newTokens));
+            setAuthTokens(newTokens);
+            console.log(res);
         }
         catch (err) {
             console.log(err);

@@ -8,7 +8,7 @@ const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function AuthProvider(props) {
   const navigate = useNavigate();
-  const [authTokens, setAuthTokens] = useState(null);
+  const [authTokens, setAuthTokens] = useState(JSON.parse(localStorage.getItem("tokens")) || null);
   const [userAccount, setUserAccount] = useState(null);
 
   const login = async ({ access, refresh }) => {
@@ -22,15 +22,11 @@ export default function AuthProvider(props) {
 
   useEffect(() => {
     if (localStorage.getItem("tokens")) {
-      const { access, refresh } = JSON.parse(localStorage.getItem("tokens"));
-      setAuthTokens({
-        access,
-        refresh
-      });
-      console.log(access, refresh);
-      getUser(access);
-      navigate("/");
+      getUser(authTokens?.access);
+      console.log(authTokens?.access);
+      // navigate("/");
     }
+
   }, []);
 
   const getUser = async (access) => {
@@ -45,7 +41,7 @@ export default function AuthProvider(props) {
       return setUserAccount(user?.data);
     } catch (err) {
       console.log(err);
-      delete axios.defaults.headers.common['Authorization'];
+      // delete axios.defaults.headers.common['Authorization'];
     }
   };
 

@@ -28,12 +28,11 @@ export default function Login() {
         
         try {
             const res = await axios.post(`/auth/jwt/create/`, body);
-            console.log(res)
             localStorage.setItem('tokens', JSON.stringify(res?.data));
-            login(res.data)
+            login(res?.data)
         } catch (err) {
             console.log(err);
-            setIsError(err.response.data.detail)
+            setIsError(err.response?.data?.detail)
         }
     }
 
