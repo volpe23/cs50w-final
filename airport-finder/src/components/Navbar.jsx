@@ -9,7 +9,7 @@ export default function Navbar() {
 
     const navigate = useNavigate()
 
-    const { userAccount, authTokens, setUserAccount, setAuthTokens, user } = useContext(AuthContext);
+    const { userAccount, authTokens, setUserAccount, setAuthTokens } = useContext(AuthContext);
     const logout = () => {
       localStorage.removeItem('tokens');
       setUserAccount(null);
@@ -20,7 +20,7 @@ export default function Navbar() {
 
     return (
       <nav className="navbar">
-      <p>{`${userAccount?.username}, ${authTokens?.access}, ${user}`}</p>
+      <p>{`${userAccount?.username}, ${authTokens?.access}`}</p>
         <ul className="navbar-list">
             <img src={logo} />
           <div className="navbar-start">

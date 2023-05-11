@@ -1,6 +1,8 @@
 import { useState, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useRefreshToken from './hooks/useRefreshToken';
 import axios from "./hooks/useAxios";
+import usePrivateAxios from "./hooks/usePrivateAxios";
 
 export const AuthContext = createContext();
 
@@ -10,6 +12,8 @@ export default function AuthProvider(props) {
   const navigate = useNavigate();
   const [authTokens, setAuthTokens] = useState(JSON.parse(localStorage.getItem("tokens")) || null);
   const [userAccount, setUserAccount] = useState(null);
+  const refreshTokens = useRefreshToken();
+  const axiosPrivate = usePrivateAxios();
 
   const login = async ({ access, refresh }) => {
     setAuthTokens({
@@ -19,25 +23,20 @@ export default function AuthProvider(props) {
     getUser(access);
     navigate("/");
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("tokens")) {
-      getUser(authTokens?.access);
-      console.log(authTokens?.access);
-      // navigate("/");
-    }
-
-  }, []);
+  
+  // useEffect(() => {
+  //   console.log(authTokens);
+  //   if (localStorage.getItem("tokens") && !userAccount) {
+  //     getUser(authTokens?.access);
+  //     console.log(authTokens?.access);
+  //   } 
+    
+  // }, []);
 
   const getUser = async (access) => {
     try {
-      const user = await axios.get(`/auth/users/me/`, {
-        headers: {
-          Authorization: `JWT ${access}`,
-          Accept: "application/json",
-        },
-      });
-      // axios.defaults.headers.common['Authorization'] = `JWT ${access}`;
+      const user = await axiosPrivate.get(`/auth/users/me/`);
+      console.log(user)
       return setUserAccount(user?.data);
     } catch (err) {
       console.log(err);
@@ -46,7 +45,7 @@ export default function AuthProvider(props) {
   };
 
   return (
-    <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens }}>
+    <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens, setUserAccount, getUser }}>
       {props.children}
     </AuthContext.Provider>
   );
