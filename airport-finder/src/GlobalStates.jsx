@@ -13,17 +13,21 @@ export default function AuthProvider(props) {
   const [authTokens, setAuthTokens] = useState(JSON.parse(localStorage.getItem("tokens")) || null);
   const [userAccount, setUserAccount] = useState(null);
   const refreshTokens = useRefreshToken();
-  const axiosPrivate = usePrivateAxios();
+  
 
   const login = async ({ access, refresh }) => {
-    setAuthTokens({
+    const tokens = {
       access,
       refresh
+    }
+    setAuthTokens({
+    ...tokens  
     });
-    getUser(access);
-    navigate("/");
+    localStorage.setItem('tokens', JSON.stringify(tokens));
+    getUser();
+    navigate("/")
   };
-  
+
   // useEffect(() => {
   //   console.log(authTokens);
   //   if (localStorage.getItem("tokens") && !userAccount) {
@@ -33,15 +37,16 @@ export default function AuthProvider(props) {
     
   // }, []);
 
+  useEffect(() => {
+    console.log(authTokens);
+  }, [])
+
   const getUser = async (access) => {
-    try {
-      const user = await axiosPrivate.get(`/auth/users/me/`);
-      console.log(user)
-      return setUserAccount(user?.data);
-    } catch (err) {
-      console.log(err);
+    console.log('triggered');
+    
+  
       // delete axios.defaults.headers.common['Authorization'];
-    }
+    
   };
 
   return (

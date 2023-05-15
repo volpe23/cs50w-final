@@ -6,26 +6,20 @@ const usePrivateAxios = () => {
   const refreshTokens = useRefreshToken();
   
   useEffect(() => {
-    
     const tokens = JSON.parse(localStorage.getItem("tokens"));
     const requestInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
-        console.log(config, tokens)
-        if (!config.headers["Authorization"]) {
-          console.log('conf');
-          config.headers["Authorization"] = `JWT ${tokens?.access}`;
-        }
+        config.headers["Authorization"] = `JWT ${tokens?.access}`;
         return config;
       },
       (error) => Promise.reject(error)
     );
-
     const responseInterceptor = axiosPrivate.interceptors.response.use(
       response => response,
       async(error) => {
-        console.log(error)
+        console.log(error);
         const prevRequest = error?.config;
-        if (error?.response?.status === 401) {
+        if (error?.response?.status === 401 || error?.response?.stauts === 400) {
           const newTokens = await refreshTokens();
           prevRequest.headers['Authorization'] = `JWT ${newTokens?.refresh}`;
           return axiosPrivate(prevRequest);

@@ -3,21 +3,21 @@ import axios from "./useAxios";
 
 const useRefreshToken = () => {
     // const { authTokens, setAuthTokens } = useAuth();
-    const { refresh } = localStorage.getItem('tokens');
+    const tokens = JSON.parse(localStorage.getItem('tokens'));
 
     const body = {
-        refresh
+        refresh: tokens?.refresh
     }
     
     const refreshTokens = async () => {
-        console.log(body)
+        console.log(tokens)
         try {
             const res = await axios.post('/auth/jwt/refresh/', JSON.stringify(body));
             const newTokens = res?.data;
             localStorage.setItem('tokens', JSON.stringify(newTokens));
+            console.log(newTokens);
             // setAuthTokens(newTokens);
             return newTokens
-            console.log(res);
 
         }
         catch (err) {
