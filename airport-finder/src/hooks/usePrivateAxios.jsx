@@ -24,7 +24,6 @@ const usePrivateAxios = () => {
         if (error?.response?.status === 401 || error?.response?.stauts === 400) {
           const newTokens = await refreshTokens();
           prevRequest.headers['Authorization'] = `JWT ${newTokens?.access}`;
-          console.log(newTokens?.access);
           return axiosPrivate(prevRequest);
         }
         return Promise.reject(error);

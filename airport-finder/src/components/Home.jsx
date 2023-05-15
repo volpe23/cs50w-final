@@ -5,7 +5,6 @@ import useAuth from "../hooks/useAuth";
 import Map from "./Map";
 import Finder from "./FInder";
 import usePrivateAxios from "../hooks/usePrivateAxios";
-// import { axiosPrivate } from "../hooks/useAxios";
 
 export default function Home() {
   const refresh = useRefreshToken();

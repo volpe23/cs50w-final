@@ -9,13 +9,12 @@ const useRefreshToken = () => {
     }
     
     const refreshTokens = async () => {
-        console.log(authTokens)
         try {
             const res = await axios.post('/auth/jwt/refresh/', JSON.stringify(body));
             const newTokens = res?.data;
             localStorage.setItem('tokens', JSON.stringify(newTokens));
+            console.log(newTokens)
             setAuthTokens(newTokens);
-            console.log('changed tokens', newTokens?.access);
             return newTokens;
 
         }
