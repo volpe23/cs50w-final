@@ -2,7 +2,6 @@ import { useState, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useRefreshToken from './hooks/useRefreshToken';
 import axios from "./hooks/useAxios";
-import usePrivateAxios from "./hooks/usePrivateAxios";
 
 export const AuthContext = createContext();
 
@@ -28,14 +27,31 @@ export default function AuthProvider(props) {
     navigate("/")
   };
 
-  // useEffect(() => {
-  //   console.log(authTokens);
-  //   if (localStorage.getItem("tokens") && !userAccount) {
-  //     getUser(authTokens?.access);
-  //     console.log(authTokens?.access);
-  //   } 
-    
-  // }, []);
+  const logout = () => {
+    localStorage.removeItem('tokens');
+    setUserAccount(null);
+    setAuthTokens(null);
+    navigate('/login');
+  }
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const body = {
+      token : authTokens?.refresh
+    }
+    const verifyJwt = async () => {
+      try {
+        const res = await axios.post('/auth/jwt/verify/', JSON.stringify(body), {
+        signal : controller.signal
+      });
+      console.log(res);
+      } catch (err) {
+          if (err?.response?.status === 401) logout();
+      }
+    }
+    authTokens ? verifyJwt() : navigate('/login');
+    return () => controller.abort();
+  }, [])
 
 
   const getUser = async (controller) => {

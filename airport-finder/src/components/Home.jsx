@@ -18,7 +18,6 @@ export default function Home() {
   useEffect(() => {
     const controller = new AbortController();
     if (!userAccount) {
-      console.log("need user");
       const getUser = async () => {
         try {
           const user = await axiosPrivate.get(`/auth/users/me/`, {
