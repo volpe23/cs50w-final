@@ -12,7 +12,7 @@ export default function AuthProvider(props) {
   const navigate = useNavigate();
   const [authTokens, setAuthTokens] = useState(JSON.parse(localStorage.getItem("tokens")) || null);
   const [userAccount, setUserAccount] = useState(null);
-  const refreshTokens = useRefreshToken();
+  // const refreshTokens = useRefreshToken();
   
 
   const login = async ({ access, refresh }) => {
@@ -37,11 +37,8 @@ export default function AuthProvider(props) {
     
   // }, []);
 
-  useEffect(() => {
-    console.log(authTokens);
-  }, [])
 
-  const getUser = async (access) => {
+  const getUser = async (controller) => {
     console.log('triggered');
     
   

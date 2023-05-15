@@ -24,8 +24,9 @@ export default function Home() {
           const user = await axiosPrivate.get(`/auth/users/me/`, {
             signal: controller.signal
           });
-          console.log(user);
+        //   console.log(user);
           setUserAccount(user?.data);
+          console.log('Success');
         } catch (err) {
           console.log(err);
         }
