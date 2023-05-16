@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axios from '../hooks/useAxios';
 
@@ -7,15 +7,14 @@ import './styles/Authentication.scss';
 import Button from '../components/utils/Button';
 
 export default function Login() {
-    const navigate = useNavigate();
-    const { authTokens, login, userAccount } = useAuth()
-
+    const { authTokens, login, userAccount, logout } = useAuth()
     const [isError, setIsError] = useState(false)
-
     const [formData, setFromData] = useState({
         email: '',
         password: ''
     })
+
+    const location = useLocation();
 
     const onChange = (e) => {
         setFromData({...formData, [e.target.name]: e.target.value})
@@ -35,6 +34,14 @@ export default function Login() {
             setIsError(err.response?.data?.detail)
         }
     }
+
+    useEffect(() => {
+        if (location?.state) {
+            setIsError(location.state.text);
+            location.state?.operation === 'logout' ? logout() : null;
+        } 
+        console.log(location);
+    }, [])
 
     return (
         <form className='auth-form' onSubmit={getToken}>

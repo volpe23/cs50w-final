@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { FromDestinationContext } from "../contexts/FromDestinationContext";
-import useRefreshToken from "../hooks/useRefreshToken";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Map from "./Map";
 import Finder from "./FInder";
 import usePrivateAxios from "../hooks/usePrivateAxios";
 
 export default function Home() {
-  const refresh = useRefreshToken();
   const { userAccount, setUserAccount } = useAuth();
   const [from, setFrom] = useState(null);
   const [destination, setDestination] = useState(null);
   const [stopovers, setStopovers] = useState(null);
   const axiosPrivate = usePrivateAxios();
 
+  const navigate = useNavigate();
   useEffect(() => {
     const controller = new AbortController();
     if (!userAccount) {
@@ -43,7 +43,9 @@ export default function Home() {
       }}
     >
       <Finder />
-      <button onClick={() => getUser()}>Clicke here</button>
+      <button onClick={() => navigate('/login', {
+        state: 'kek'
+      })}>Clicke here</button>
       <Map from={from} destination={destination} stopovers={stopovers}></Map>
     </FromDestinationContext.Provider>
   );

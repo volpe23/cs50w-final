@@ -23,15 +23,18 @@ export default function AuthProvider(props) {
     ...tokens  
     });
     localStorage.setItem('tokens', JSON.stringify(tokens));
-    getUser();
     navigate("/")
   };
 
-  const logout = () => {
-    localStorage.removeItem('tokens');
+  const logout = (msg) => {
     setUserAccount(null);
     setAuthTokens(null);
-    navigate('/login');
+    // const state = { text: msg };
+    // navigate('/login', {
+    //   state: 'Hello'
+    // });
+    localStorage.removeItem('tokens');
+    console.log('logged out', msg)
   }
 
   useEffect(() => {
@@ -46,24 +49,21 @@ export default function AuthProvider(props) {
       });
       console.log(res);
       } catch (err) {
-          if (err?.response?.status === 401) logout();
+          if (err?.response?.status === 401) navigate('/login', {
+            state: {
+              text: 'Your session has expired!',
+              operation: 'logout'
+            }
+          });
       }
     }
-    authTokens ? verifyJwt() : navigate('/login');
+    if (authTokens) verifyJwt();
     return () => controller.abort();
   }, [])
 
 
-  const getUser = async (controller) => {
-    console.log('triggered');
-    
-  
-      // delete axios.defaults.headers.common['Authorization'];
-    
-  };
-
   return (
-    <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens, setUserAccount, getUser }}>
+    <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens, setUserAccount, logout }}>
       {props.children}
     </AuthContext.Provider>
   );
