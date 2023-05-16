@@ -16,18 +16,18 @@ export default function Navbar() {
         <ul className="navbar-list">
             <img src={logo} />
           <div className="navbar-start">
-              <li className="nav-item">
-                <Link to="/">Home</Link>
+              <li >
+                <Link className="nav-item" to="/">Home</Link>
               </li>
           </div>
           <div className="navbar-end">
             {!userAccount ? (
               <>
-                <li className="nav-btn nav-btn-primary">
-                  <Link to="/register">Register</Link>
+                <li >
+                  <Link className="nav-btn nav-btn-primary" to="/register">Register</Link>
                 </li>
-                <li className="nav-btn btn-outline">
-                  <Link to="/login">Login</Link>
+                <li >
+                  <Link className="nav-btn btn-outline" to="/login">Login</Link>
                 </li>
               </>
             ) : (
