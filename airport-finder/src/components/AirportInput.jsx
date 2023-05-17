@@ -18,10 +18,10 @@ export default function AirportInput ({ placeholder, setAirport, selectedAirport
         const fits = airports.filter((airport) => {
             const regex = new RegExp(`^${searchBox}`, "gi");
             return (
-              airport.country.match(regex) ||
               airport.city.match(regex) ||
+              airport.country.match(regex) ||
               airport.name.match(regex) ||
-             airport.iata_code.match(regex)
+              airport.iata_code.match(regex)
             );
           });
         setResults(fits)

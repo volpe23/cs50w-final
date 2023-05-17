@@ -5,17 +5,17 @@ import useDestination from "../hooks/useDestination";
 
 export default function Flight({ flight }) {
     const airports = useAirports();
-    const { stopovers } = useDestination();
+    const { setStopovers } = useDestination();
 
     const handleStopovers = (stops) => {
         if (stops[0] === '') {
-            stopovers.setStopovers(null);
+            setStopovers(null);
             return;
         };
         const stopoverArr = stops[0].split(',').map(stop => {
             return airports.find(airport => airport.iata_code === stop.trim())
         })
-        stopovers.setStopovers(stopoverArr);
+        setStopovers(stopoverArr);
     }
 
     return (
@@ -25,13 +25,16 @@ export default function Flight({ flight }) {
                 <SingleFlight flightInfo={flight.in}/>
             </div>
             <div className="flight__info">
-                <span>{flight.price}</span>
+                <div>
+                    <b className="flight__price">{flight.price}</b>
+                    <span style={{fontWeight : 400}}> / person</span>
+                </div>
                 <a href={flight.link}>
                     <Button >View offer</Button>
                 </a>
                 <Button onClick={() => handleStopovers(flight.out.stopovers.slice(1))}>View route</Button>
             </div>
-            <div id={`map-${flight.id}`}></div>
+            {/* <div id={`map-${flight.id}`}></div> */}
         </div>
     )
 }

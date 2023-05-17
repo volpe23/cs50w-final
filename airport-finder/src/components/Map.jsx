@@ -84,7 +84,7 @@ export default function Map() {
                         destination
                     </Popup>
                 </Marker>}
-                {(from && destination && stopovers) && <Source id="my-data" type='geojson' data={lineSource}>
+                {(from && destination) && <Source id="my-data" type='geojson' data={lineSource}>
                     <Layer {...line}/>
                 </Source>}
             </ReactMap>

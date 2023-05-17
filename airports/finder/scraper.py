@@ -18,7 +18,7 @@ def launch_browser(from_airport, destination, start_date, back_date):
     # options.add_argument("--window-size=1920,1080")
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument("--disable-extensions")
-    driver = webdriver.Chrome(PATH, options=options)
+    driver = webdriver.Chrome()
     driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
     driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
     # driver.implicitly_wait(10)
