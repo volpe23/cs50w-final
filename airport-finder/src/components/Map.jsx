@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import useDestination from './../hooks/useDestination';
 import ReactMap, { Marker, Popup, Layer, Source } from 'react-map-gl';
 import RoomIcon from '@mui/icons-material/Room';
 import WebMercatorViewport from 'viewport-mercator-project';
 import { maxBy, minBy } from 'lodash';
 import '../styles/Map.scss';
-import { FromDestinationContext } from '../contexts/FromDestinationContext';
 
 
-export default function Map({ from, destination, stopovers }) {
+export default function Map() {
+    const { from, destination, stopovers } = useDestination();
     const mapContainerRef = useRef(null)
     const [width, height] = [900, 600]
     const [viewport, setViewport] = useState({
