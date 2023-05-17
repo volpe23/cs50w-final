@@ -4,13 +4,19 @@ import Button from "./utils/Button"
 import { AirportContext } from "./Layout"
 import { FromDestinationContext } from "../contexts/FromDestinationContext"
 
-export default function Flight({ flight,  }) {
-    const airports = useContext(AirportContext)
-    const { stopovers } = useContext(FromDestinationContext)
+export default function Flight({ flight }) {
+    const airports = useContext(AirportContext);
+    const { stopovers } = useContext(FromDestinationContext);
+
     const handleStopovers = (stops) => {
+        if (stops[0] === '') {
+            stopovers.setStopovers(null);
+            return;
+        };
         const stopoverArr = stops[0].split(',').map(stop => {
             return airports.find(airport => airport.iata_code === stop.trim())
         })
+        console.log(stops);
         stopovers.setStopovers(stopoverArr);
     }
 

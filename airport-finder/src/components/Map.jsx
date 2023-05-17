@@ -40,13 +40,13 @@ export default function Map({ from, destination, stopovers }) {
         if (from && destination) {
             let markers = [from, destination];
             if (stopovers) {
-                markers = [from, ...stopovers, destination]
-                setLineSource({...lineSource,
-                    features : [
-                    {type: 'Feature', geometry: {type: 'LineString', coordinates : getPointCoordinates(from, destination, stopovers)}}
-                ]
-                })
+                markers = [from, ...stopovers, destination];
             }
+            setLineSource({...lineSource,
+                features : [
+                {type: 'Feature', geometry: {type: 'LineString', coordinates : getPointCoordinates(from, destination, stopovers)}}
+            ]
+            })
             const bounds = getBounds(markers);
             setViewport((viewport) => {
                 const newViewport = new WebMercatorViewport({
@@ -109,6 +109,7 @@ const getBounds = (markers) => {
 }
 
 const getPointCoordinates = (from, destination, stopovers) => {
-    const stopoverCoords = stopovers?.map(stop => [stop._geoloc.lng, stop._geoloc.lat])
+    const stopoverCoords = stopovers?.map(stop => [stop._geoloc.lng, stop._geoloc.lat]) || []
+    console.log(stopoverCoords);
     return [[from?._geoloc.lng, from?._geoloc.lat], ...stopoverCoords, [destination?._geoloc.lng, destination?._geoloc.lat]]
 }

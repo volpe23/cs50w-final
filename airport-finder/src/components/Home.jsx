@@ -43,9 +43,6 @@ export default function Home() {
       }}
     >
       <Finder />
-      <button onClick={() => navigate('/login', {
-        state: 'kek'
-      })}>Clicke here</button>
       <Map from={from} destination={destination} stopovers={stopovers}></Map>
     </FromDestinationContext.Provider>
   );
