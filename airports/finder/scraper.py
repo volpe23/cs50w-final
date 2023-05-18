@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import time
 
 PATH = 'C:/Users/lv-andrisr/OneDrive - TEKNOS GROUP OY/Desktop/test/chromedriver.exe'
@@ -18,18 +18,25 @@ def launch_browser(from_airport, destination, start_date, back_date):
     # options.add_argument("--window-size=1920,1080")
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument("--disable-extensions")
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
     driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
     driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-    # driver.implicitly_wait(10)
+
     driver.get(url)
     # driver.get_screenshot_as_file("screenshot.png")
-    time.sleep(10)
-    xp_button = '//*[@class="Iqt3 Iqt3-mod-stretch Iqt3-mod-bold Button-No-Standard-Style Iqt3-mod-variant-solid Iqt3-mod-theme-action Iqt3-mod-shape-rounded-small Iqt3-mod-shape-mod-default Iqt3-mod-spacing-default Iqt3-mod-size-small"]'
+    time.sleep(5)
+    xp_button = '//*[@class="Iqt3 Iqt3-mod-stretch Iqt3-mod-bold Button-No-Standard-Style Iqt3-mod-variant-outline Iqt3-mod-theme-base Iqt3-mod-shape-rounded-small Iqt3-mod-shape-mod-default Iqt3-mod-spacing-default Iqt3-mod-size-small"]'
     # //*[@id="Ntc7"]/div[13]/div/div[3]/div/div/div[2]/div/div/div[1]/button
-    ''
-    button = driver.find_element(By.XPATH, xp_button)
-    button.click()
+    try:
+        element = WebDriverWait(driver, 5).until(
+        EC.presence_of_element_located((By.XPATH, xp_button))
+    )
+        print(element)
+        element.click()
+    except TimeoutException:
+        driver.quit()
+    # button = driver.find_element(By.XPATH, xp_button)
+    # button.click()
     scraped = []
     try:
         # //*[@id="rs5E-info"]/ol

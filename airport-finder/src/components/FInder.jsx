@@ -6,8 +6,8 @@ import Button from './utils/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import DateSelector from './utils/Date';
-
 import '../styles/Finder.scss';
+
 
 export default function Finder({}) {
     
@@ -16,13 +16,16 @@ export default function Finder({}) {
     const [flights, setFlights] = useState([...exampleFlight]);
     const [startDate, setStartDate] = useState(null);
     const [backDate, setBackDate] = useState(null);
+    const [isSearching, setIsSearching] = useState(false);
 
     async function getFlights() {
+        setIsSearching(true);
         const url = `http://127.0.0.1:8000/backend/flight?from=${from?.iata_code}&destination=${destination?.iata_code}&start=${convertDate(startDate)}&back=${convertDate(backDate)}`;
         const response = await fetch(url);
         const data = await response.json();
         console.log(data.flights)
-        setFlights([...exampleFlight, ...data.flights]);
+        setFlights([...data.flights]);
+        setIsSearching(false);
     }
 
     return (
@@ -50,7 +53,7 @@ export default function Finder({}) {
                 <DateSelector onDateSelect={setStartDate} />
                 <DateSelector onDateSelect={setBackDate} />
             </div>
-            <Flights flights={flights} />
+            <Flights flights={flights} isSearching={isSearching} />
         </div>
     )
 }
