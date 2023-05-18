@@ -31,6 +31,7 @@ export default function Login() {
             localStorage.setItem('tokens', JSON.stringify(res?.data));
             login(res?.data)
         } catch (err) {
+            setIsLoading(false);
             console.log(err);
             setIsError(err.response?.data?.detail)
         }

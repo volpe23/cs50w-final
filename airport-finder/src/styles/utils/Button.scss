@@ -2,7 +2,7 @@
 
 .btn {
     cursor: pointer;
-    background: linear-gradient(110deg, $primary-green, $forest-green);
+    background: linear-gradient(110deg, $primary-blue, $primary-blue-hover);
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
     font-weight: $fw-normal;
@@ -11,8 +11,6 @@
     border-radius: 0.35rem;
     transition: all 0.2s ease-in-out;
     @include flex-center;
-    
-
 
     &:hover {
         filter: brightness(105%);

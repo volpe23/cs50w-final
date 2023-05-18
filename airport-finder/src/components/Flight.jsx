@@ -29,9 +29,9 @@ export default function Flight({ flight }) {
                     <b className="flight__price">{flight.price}</b>
                     <span style={{fontWeight : 400}}> / person</span>
                 </div>
-                <a href={flight.link}>
-                    <Button >View offer</Button>
-                </a>
+                    <Button >
+                        <a href={flight.link}>View offer</a>
+                    </Button>
                 <Button onClick={() => handleStopovers(flight.out.stopovers.slice(1))}>View route</Button>
             </div>
             {/* <div id={`map-${flight.id}`}></div> */}
