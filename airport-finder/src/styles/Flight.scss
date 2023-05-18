@@ -11,12 +11,9 @@
     margin: 1rem 0;
     padding: 1rem;
     padding-right: 0;
-    box-shadow: 0px 4px 7px 0px $light-grey-shadow;
     @include transition;
-
-    &:hover{
-        box-shadow: 0px 3px 10px 1px $grey;
-    }
+    @include shadow;
+    
 }
 
 .flight__content {
@@ -42,4 +39,10 @@
 
 .flight__price {
     font-size: 1.4rem;
+}
+
+@media (max-width: 576px) {
+    .flight {
+        max-width: 400px;
+    }
 }

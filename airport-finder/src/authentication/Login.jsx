@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axios from '../hooks/useAxios';
 
@@ -7,13 +7,13 @@ import './styles/Authentication.scss';
 import Button from '../components/utils/Button';
 
 export default function Login() {
-    const { login, logout, setIsLoading } = useAuth()
+    const { login, logout, setIsLoading, authTokens } = useAuth()
     const [isError, setIsError] = useState(false)
     const [formData, setFromData] = useState({
         email: '',
         password: ''
     })
-
+    const navigate = useNavigate();
     const location = useLocation();
 
     const onChange = (e) => {
@@ -38,6 +38,7 @@ export default function Login() {
     }
 
     useEffect(() => {
+        if (authTokens) navigate('/');
         if (location?.state) {
             setIsError(location.state.text);
             location.state?.operation === 'logout' ? logout() : null;

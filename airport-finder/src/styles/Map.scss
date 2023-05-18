@@ -2,8 +2,9 @@
 
 #map {
     width: 900px;
-    height: 600px;
+    // height: 600px;
     margin-bottom: 2rem;
+    aspect-ratio: 3/2;
   }
   
 .marker__from {
@@ -14,4 +15,10 @@
 .marker__destination {
     color: $red;
     scale: 2;
+}
+
+@media (max-width: 576px) {
+    #map {
+        width: 570px;
+    }
 }
