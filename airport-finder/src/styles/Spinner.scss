@@ -8,7 +8,24 @@
   height: 60px;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+  aspect-ratio: 1/1;
+
+  &.spinner-page-center.large {
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+  }
+
+  &.large {
+    width: 100px;
+    height: 100px;
+  }
 }
+
+
 
 @keyframes spin {
   0% {

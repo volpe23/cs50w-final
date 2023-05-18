@@ -5,7 +5,6 @@ import Spinner from "./components/utils/spinner";
 
 export const AuthContext = createContext();
 
-const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function AuthProvider(props) {
   const navigate = useNavigate();
@@ -22,14 +21,17 @@ export default function AuthProvider(props) {
     ...tokens  
     });
     localStorage.setItem('tokens', JSON.stringify(tokens));
-    navigate("/")
+    navigate("/");
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   };
 
   const logout = (msg) => {
     setUserAccount(null);
     setAuthTokens(null);
     localStorage.removeItem('tokens');
-    console.log('logged out', msg)
+    console.log('logged out', msg);
   }
 
   useEffect(() => {
@@ -59,8 +61,9 @@ export default function AuthProvider(props) {
 
 
   return (
-    <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens, setUserAccount, logout }}>
-      {isLoading ? <Spinner /> : props.children}
+    <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens, setUserAccount, logout, setIsLoading }}>
+    {/* <Spinner size='large spinner-page-center' /> */}
+      {isLoading ? <Spinner size='large spinner-page-center' /> : props.children}
     </AuthContext.Provider>
   );
 }

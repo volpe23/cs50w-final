@@ -7,7 +7,7 @@ import './styles/Authentication.scss';
 import Button from '../components/utils/Button';
 
 export default function Login() {
-    const { authTokens, login, userAccount, logout } = useAuth()
+    const { login, logout, setIsLoading } = useAuth()
     const [isError, setIsError] = useState(false)
     const [formData, setFromData] = useState({
         email: '',
@@ -26,6 +26,7 @@ export default function Login() {
         const body = JSON.stringify(formData);
         
         try {
+            setIsLoading(true);
             const res = await axios.post(`/auth/jwt/create/`, body);
             localStorage.setItem('tokens', JSON.stringify(res?.data));
             login(res?.data)
