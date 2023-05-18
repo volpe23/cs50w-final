@@ -16,9 +16,9 @@ function App() {
 
 	return (
 		<AuthProvider>
-			<Navbar />
 			<main className="main">
 				<Layout>
+					<Navbar />
 					<Routes>
 						<Route element={<PrivateRoute />}>
 							<Route path='/' element={<Home />} />

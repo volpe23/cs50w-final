@@ -1,7 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useRefreshToken from './hooks/useRefreshToken';
 import axios from "./hooks/useAxios";
+import Spinner from "./components/utils/spinner";
 
 export const AuthContext = createContext();
 
@@ -11,8 +11,7 @@ export default function AuthProvider(props) {
   const navigate = useNavigate();
   const [authTokens, setAuthTokens] = useState(JSON.parse(localStorage.getItem("tokens")) || null);
   const [userAccount, setUserAccount] = useState(null);
-  // const refreshTokens = useRefreshToken();
-  
+  const [isLoading, setIsLoading] = useState(true);  
 
   const login = async ({ access, refresh }) => {
     const tokens = {
@@ -29,10 +28,6 @@ export default function AuthProvider(props) {
   const logout = (msg) => {
     setUserAccount(null);
     setAuthTokens(null);
-    // const state = { text: msg };
-    // navigate('/login', {
-    //   state: 'Hello'
-    // });
     localStorage.removeItem('tokens');
     console.log('logged out', msg)
   }
@@ -58,13 +53,14 @@ export default function AuthProvider(props) {
       }
     }
     if (authTokens) verifyJwt();
+    setIsLoading(false);
     return () => controller.abort();
   }, [])
 
 
   return (
     <AuthContext.Provider value={{ authTokens, userAccount, login, setAuthTokens, setUserAccount, logout }}>
-      {props.children}
+      {isLoading ? <Spinner /> : props.children}
     </AuthContext.Provider>
   );
 }

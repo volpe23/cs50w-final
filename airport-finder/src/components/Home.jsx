@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import FromDestinationProvider from "../contexts/FromDestinationContext";
 import useAuth from "../hooks/useAuth";
 import Map from "./Map";
