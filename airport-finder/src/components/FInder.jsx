@@ -1,40 +1,31 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState } from 'react';
+import useDestination from '../hooks/useDestination';
 import Flights from './Flights';
 import AirportInput from './AirportInput';
 import Button from './utils/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import DateSelector from './utils/Date';
+import '../styles/Finder.scss';
 
-import '../styles/Finder.scss'
-import { FromDestinationContext } from '../contexts/FromDestinationContext';
 
 export default function Finder({}) {
     
-    const { fromAirport, destinationAirport } = useContext(FromDestinationContext)
-
-    const [from, setFrom] = fromAirport;
-    const [destination, setDestination] = destinationAirport;
+    const { from, setFrom, destination, setDestination } = useDestination();
 
     const [flights, setFlights] = useState([...exampleFlight]);
     const [startDate, setStartDate] = useState(null);
     const [backDate, setBackDate] = useState(null);
-
-
-
-    const swapDirections = () => {
-        let temp = from;
-        setFrom(destination);
-        setDestination(temp);
-        temp = 0
-    }
+    const [isSearching, setIsSearching] = useState(false);
 
     async function getFlights() {
+        setIsSearching(true);
         const url = `http://127.0.0.1:8000/backend/flight?from=${from?.iata_code}&destination=${destination?.iata_code}&start=${convertDate(startDate)}&back=${convertDate(backDate)}`;
         const response = await fetch(url);
         const data = await response.json();
         console.log(data.flights)
-        setFlights([...exampleFlight, ...data.flights]);
+        setFlights([...data.flights]);
+        setIsSearching(false);
     }
 
     return (
@@ -62,17 +53,17 @@ export default function Finder({}) {
                 <DateSelector onDateSelect={setStartDate} />
                 <DateSelector onDateSelect={setBackDate} />
             </div>
-            <Flights flights={flights} />
+            <Flights flights={flights} isSearching={isSearching} />
         </div>
     )
 }
 
 function convertDate(inp) {
-    const date = inp
+    const date = inp;
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`
+    return `${year}-${month}-${day}`;
 }
 
 const exampleFlight = [{'id': '788164faf6eacacf9a5eaf8bab6d6b02', 

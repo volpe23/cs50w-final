@@ -1,0 +1,21 @@
+@import './main.scss';
+
+.spinner {
+  border: 10px solid $light-grey-shadow;
+  border-top: 10px solid $primary-blue;
+  margin: 2rem auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 360deg;
+  }
+}

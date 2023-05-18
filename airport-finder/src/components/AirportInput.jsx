@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, useCallback, useContext } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import AirportResults from "./AirportResults";
 import '../styles/AirportInput.scss';
-import { AirportContext } from "./Layout";
+import useAirports from './../hooks/useAirports';
 
 export default function AirportInput ({ placeholder, setAirport, selectedAirport }) {
-    const airports = useContext(AirportContext)
+    const airports = useAirports();
     const [results, setResults] = useState([]);
     const [resultsShown, setResultsShown] = useState(false);
     const inp = useRef(null);
@@ -18,10 +18,10 @@ export default function AirportInput ({ placeholder, setAirport, selectedAirport
         const fits = airports.filter((airport) => {
             const regex = new RegExp(`^${searchBox}`, "gi");
             return (
+              airport.city.match(regex) ||
               airport.country.match(regex) ||
               airport.name.match(regex) ||
-              airport.city.match(regex) ||
-             airport.iata_code.match(regex)
+              airport.iata_code.match(regex)
             );
           });
         setResults(fits)
