@@ -34,7 +34,7 @@ export default function Navbar() {
               <li onClick={() => {
                   navigate('/login', {
                     state: { 
-                      text : 'You are logged out!',
+                      text : 'You have logged out!',
                       operation : 'logout'
                       }
                   })

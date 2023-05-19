@@ -13,6 +13,11 @@
     position: relative;
     @include flex-center;
     margin: 0 auto;
+    transform: translate(24px);
+
+    .btn {
+        margin-left: 0.5rem;
+    }
 }
 
 .swap-button {

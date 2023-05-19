@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axios from '../hooks/useAxios';
 
@@ -7,13 +7,13 @@ import './styles/Authentication.scss';
 import Button from '../components/utils/Button';
 
 export default function Login() {
-    const { authTokens, login, userAccount, logout } = useAuth()
+    const { login, logout, setIsLoading, authTokens } = useAuth()
     const [isError, setIsError] = useState(false)
     const [formData, setFromData] = useState({
         email: '',
         password: ''
     })
-
+    const navigate = useNavigate();
     const location = useLocation();
 
     const onChange = (e) => {
@@ -26,16 +26,19 @@ export default function Login() {
         const body = JSON.stringify(formData);
         
         try {
+            setIsLoading(true);
             const res = await axios.post(`/auth/jwt/create/`, body);
             localStorage.setItem('tokens', JSON.stringify(res?.data));
             login(res?.data)
         } catch (err) {
+            setIsLoading(false);
             console.log(err);
             setIsError(err.response?.data?.detail)
         }
     }
 
     useEffect(() => {
+        if (authTokens) navigate('/');
         if (location?.state) {
             setIsError(location.state.text);
             location.state?.operation === 'logout' ? logout() : null;
