@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import '../styles/Navbar.scss';
 import logo from '../imgs/icons8-airplane-96.png';
 import useAuth from "../hooks/useAuth";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Navbar() {
 
@@ -29,8 +30,10 @@ export default function Navbar() {
                 <li >
                   <Link className="nav-btn btn-outline" to="/login">Login</Link>
                 </li>
+                
               </>
             ) : (
+              <>
               <li onClick={() => {
                   navigate('/login', {
                     state: { 
@@ -41,6 +44,16 @@ export default function Navbar() {
                 }}>
                 <Link className="nav-btn btn-outline" >Logout</Link>
               </li>
+              <li>
+                  <Link className="nav-btn btn-outline" to="account">
+                    <AccountCircleIcon style={{
+                      marginRight: '5px',
+                      paddingLeft: '0'
+                    }}/> Profile
+                  </Link>
+                </li>
+              </>
+              
             )}
           </div>
         </ul>

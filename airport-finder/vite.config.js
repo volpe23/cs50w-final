@@ -10,5 +10,10 @@ export default defineConfig({
   // base: process.env.mode === "production" ? "/static/" : "/",
   root: "./src",
   plugins: [reactRefresh()],
+  resolve: {
+    alias: {
+      src: "/src",
+    },
+  },
   
 });

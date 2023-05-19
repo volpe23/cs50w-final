@@ -1,5 +1,3 @@
-import { useState, useEffect, useRef, createContext } from 'react';
-import { Marker } from 'react-map-gl';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Navbar from './components/Navbar';
@@ -10,6 +8,7 @@ import Home from './components/Home';
 import Register from './authentication/Register';
 import Login from './authentication/Login';
 import PrivateRoute from './authentication/PrivateRoute';
+import Profile from './authentication/Profile';
 
 
 function App() {
@@ -22,6 +21,7 @@ function App() {
 					<Routes>
 						<Route element={<PrivateRoute />}>
 							<Route path='/' element={<Home />} />
+							<Route path='/account' element={<Profile />} />
 						</Route>
 						<Route path='/register' element={<Register />} />
 						<Route path='/login' element={<Login />} />

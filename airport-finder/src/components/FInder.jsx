@@ -4,7 +4,6 @@ import Flights from './Flights';
 import AirportInput from './AirportInput';
 import Button from './utils/Button';
 import SearchIcon from '@mui/icons-material/Search';
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
 import DateSelector from './utils/Date';
 import '../styles/Finder.scss';
 
