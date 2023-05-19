@@ -34,7 +34,15 @@ export default function Navbar() {
               </>
             ) : (
               <>
-              <li onClick={() => {
+              <li>
+                  <Link className="nav-btn btn-outline" to="account">
+                    <AccountCircleIcon style={{
+                      marginRight: '5px',
+                      paddingLeft: '0'
+                    }}/> Profile
+                  </Link>
+                </li>
+                <li onClick={() => {
                   navigate('/login', {
                     state: { 
                       text : 'You have logged out!',
@@ -44,14 +52,7 @@ export default function Navbar() {
                 }}>
                 <Link className="nav-btn btn-outline" >Logout</Link>
               </li>
-              <li>
-                  <Link className="nav-btn btn-outline" to="account">
-                    <AccountCircleIcon style={{
-                      marginRight: '5px',
-                      paddingLeft: '0'
-                    }}/> Profile
-                  </Link>
-                </li>
+
               </>
               
             )}
