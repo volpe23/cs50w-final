@@ -13,8 +13,11 @@ import Profile from './authentication/Profile';
 
 function App() {
 
+	const user = JSON.parse(sessionStorage.getItem('user'));
+	const tokens = JSON.parse(localStorage.getItem("tokens"));
+
 	return (
-		<AuthProvider>
+		<AuthProvider user={user} tokens={tokens}>
 			<main className="main">
 				<Layout>
 					<Navbar />

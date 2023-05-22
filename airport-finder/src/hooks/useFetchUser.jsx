@@ -15,6 +15,7 @@ const useFetchUser = () => {
             signal: controller.signal
           });
           setUserAccount(user?.data);
+          sessionStorage.setItem('user', JSON.stringify(user?.data));
           console.log('Success');
           console.log(userAccount);
         } catch (err) {
