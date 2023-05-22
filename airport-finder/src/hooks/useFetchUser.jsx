@@ -8,6 +8,7 @@ const useFetchUser = () => {
   const axiosPrivate = usePrivateAxios();
 
   const fetchUser = async (controller) => {
+    console.log(userAccount)
     if (!userAccount) {
         try {
           const user = await axiosPrivate.get(`/auth/users/me/`, {
@@ -15,6 +16,7 @@ const useFetchUser = () => {
           });
           setUserAccount(user?.data);
           console.log('Success');
+          console.log(userAccount);
         } catch (err) {
           console.log(err);
         }

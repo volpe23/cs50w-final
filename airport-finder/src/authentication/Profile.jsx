@@ -4,7 +4,7 @@ import useFetchUser from "../hooks/useFetchUser";
 export default function Profile() {
 
   const { userAccount } = useAuth();
-  const fetchUser = useFetchUser();
+  // const fetchUser = useFetchUser();
 
   // useEffect(() => {
   //   const controller = new AbortController();
@@ -15,11 +15,11 @@ export default function Profile() {
 
   useEffect(() => {
     console.log(userAccount);
-  }, [])
+  }, [userAccount])
 
   return (
     <div>
-      {/* {userAccount.username} */}
+      {userAccount.username}
     </div>
   )
 }

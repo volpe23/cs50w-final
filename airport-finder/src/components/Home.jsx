@@ -9,28 +9,9 @@ import useFetchUser from "../hooks/useFetchUser";
 export default function Home() {
     
   const { userAccount, setUserAccount } = useAuth();
-  const axiosPrivate = usePrivateAxios();
-  const fetchUser = useFetchUser();
   useEffect(() => {
-    const controller = new AbortController();
-    // if (!userAccount) {
-    //   const getUser = async () => {
-    //     try {
-    //       const user = await axiosPrivate.get(`/auth/users/me/`, {
-    //         signal: controller.signal
-    //       });
-    //     //   console.log(user);
-    //       setUserAccount(user?.data);
-    //       console.log('Success');
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   };
-    //   getUser();
-    // }
-    fetchUser(controller);
-    return () => controller.abort();
-  }, []);
+    console.log(userAccount);
+  }, [userAccount]);
 
   return (
     <FromDestinationProvider>

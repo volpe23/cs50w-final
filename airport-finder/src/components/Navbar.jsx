@@ -3,14 +3,13 @@ import '../styles/Navbar.scss';
 import logo from '../imgs/icons8-airplane-96.png';
 import useAuth from "../hooks/useAuth";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useEffect } from "react";
 
 export default function Navbar() {
 
     const navigate = useNavigate()
 
     const { userAccount } = useAuth();
-
-    
 
     return (
       <nav className="navbar">
