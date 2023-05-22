@@ -8,10 +8,10 @@ import useFetchUser from "../hooks/useFetchUser";
 
 export default function Home() {
     
-  const { userAccount, setUserAccount } = useAuth();
+  const { userAccount } = useAuth();
   useEffect(() => {
     console.log(userAccount);
-  }, [userAccount]);
+  }, []);
 
   return (
     <FromDestinationProvider>
