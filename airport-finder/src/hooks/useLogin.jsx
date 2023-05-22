@@ -11,6 +11,7 @@ const useLogin = () => {
       access,
       refresh,
     };
+    console.log(tokens);
     setAuthTokens({
       ...tokens,
     });

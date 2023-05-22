@@ -5,7 +5,7 @@ const useLogout = () => {
   const { setUserAccount, setAuthTokens } = useAuth();
   const navigate = useNavigate();
 
-  const logout = () => {
+  const logout = (msg) => {
     setUserAccount(null);
     setAuthTokens(null);
     localStorage.removeItem("tokens");
@@ -13,7 +13,7 @@ const useLogout = () => {
     console.log("logged out");
     navigate('/login', {
       state: { 
-        text : 'You have logged out!',
+        text : msg,
         operation : 'logout'
         }
     })

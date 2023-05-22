@@ -40,7 +40,7 @@ export default function Navbar() {
                     }}/> Profile
                   </Link>
                 </li>
-                <li onClick={() => logout()}>
+                <li onClick={() => logout("You have logged out!")}>
                 <Link className="nav-btn btn-outline" >Logout</Link>
               </li>
 
