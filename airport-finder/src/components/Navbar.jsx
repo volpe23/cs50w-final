@@ -37,7 +37,7 @@ export default function Navbar() {
                     <AccountCircleIcon style={{
                       marginRight: '5px',
                       paddingLeft: '0'
-                    }}/> Profile
+                    }}/> {userAccount?.username}
                   </Link>
                 </li>
                 <li onClick={() => logout("You have logged out!")}>

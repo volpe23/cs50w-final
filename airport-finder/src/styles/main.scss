@@ -29,7 +29,7 @@ $xl-screen-width: 1100px;
 
 @mixin shadow {
     box-shadow: 0px 4px 7px 0px $light-grey-shadow;
-
+    @include transition;
     &:hover{
         box-shadow: 0px 3px 10px 1px $grey;
     }
