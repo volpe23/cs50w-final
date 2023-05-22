@@ -45,10 +45,11 @@ export default function Layout(props) {
     const controller = new AbortController();
     getAirports();
     if (authTokens) {
-      verifyJwt(controller);
-      fetchUser(controller);
+        verifyJwt(controller);
+        fetchUser(controller);
     }
     setIsLoading(false);
+
     return () => controller.abort();
   }, []);
 
