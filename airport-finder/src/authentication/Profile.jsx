@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import useAuth from "../hooks/useAuth"
-import '@/authentication/styles/Profile.scss'
-import Button from '@/components/utils/Button'
+import useAuth from "@/hooks/useAuth";
+import '@/authentication/styles/Profile.scss';
+import Button from '@/components/utils/Button';
 
 export default function Profile() {
 

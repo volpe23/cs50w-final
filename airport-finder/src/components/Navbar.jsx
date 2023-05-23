@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import '../styles/Navbar.scss';
-import logo from '../imgs/icons8-airplane-96.png';
-import useAuth from "../hooks/useAuth";
+import '@/styles/Navbar.scss';
+import logo from '@/imgs/icons8-airplane-96.png';
+import useAuth from "@/hooks/useAuth";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import useLogout from "../hooks/useLogout";
+import useLogout from "@/hooks/useLogout";
 
 export default function Navbar() {
     const logout = useLogout();

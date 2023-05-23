@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import useLogin from '../hooks/useLogin';
-import axios from '../hooks/useAxios';
-import useLogout from '../hooks/useLogout';
-import useFetchUser from '../hooks/useFetchUser';
+import useAuth from '@/hooks/useAuth';
+import useLogin from '@/hooks/useLogin';
+import axios from '@/hooks/useAxios';
+import useLogout from '@/hooks/useLogout';
+import useFetchUser from '@/hooks/useFetchUser';
 
-import './styles/Authentication.scss';
-import Button from '../components/utils/Button';
+import '@/authentication/styles/Authentication.scss';
+import Button from '@/components/utils/Button';
 
 export default function Login() {
     const { setIsLoading, authTokens } = useAuth()
