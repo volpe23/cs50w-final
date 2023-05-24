@@ -30,9 +30,8 @@ export default function Login() {
         e.preventDefault();
 
         const body = JSON.stringify(formData);
-        const controller = new AbortController();
         try {
-            setIsLoading(true);
+            // setIsLoading(true);
             const res = await axios.post(`/auth/jwt/create/`, body);
             localStorage.setItem('tokens', JSON.stringify(res?.data));
             // fetchUser(controller);
@@ -46,7 +45,7 @@ export default function Login() {
     }
 
     useEffect(() => {
-        if (authTokens) navigate('/')
+        // if (authTokens) navigate('/')
         if (location?.state) {
             setIsError(location.state.text);
         } 

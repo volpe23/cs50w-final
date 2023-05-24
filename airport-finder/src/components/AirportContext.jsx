@@ -13,7 +13,7 @@ export default function AirportContextProvider() {
   const navigate = useNavigate();
   const logout = useLogout();
   const [airports, setAirports] = useState(null);
-  const { authTokens, isLoading, setIsLoading } = useAuth();
+  const { authTokens, userAccount } = useAuth();
 
   const getAirports = async () => {
     const airports = await fetch(
@@ -23,38 +23,13 @@ export default function AirportContextProvider() {
     return setAirports(results);
   };
 
-  const verifyJwt = async (controller) => {
-    const body = {
-      token: authTokens?.refresh,
-    };
-    try {
-      const res = await axios.post("/auth/jwt/verify/", JSON.stringify(body), {
-        signal: controller.signal,
-      });
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-      if (err?.response?.status === 401) {
-        navigate("/login", {
-          state: {
-            text: "Your session has expired!",
-            operation: "logout",
-          },
-        });
-        logout("Your session has expired!");
-      }
-    }
-  };
-
   useEffect(() => {
     console.log("Rendered");
     const controller = new AbortController();
     getAirports();
-    if (authTokens) {
-      verifyJwt(controller);
+    if (authTokens && !userAccount) {
       fetchUser(controller);
     }
-    setIsLoading(false);
 
     return () => controller.abort();
   }, []);
@@ -62,7 +37,7 @@ export default function AirportContextProvider() {
   return (
     <>
       <AirportContext.Provider value={airports}>
-        {isLoading ? <Spinner size="large" /> : <Outlet />}
+        <Outlet />
       </AirportContext.Provider>
     </>
   );

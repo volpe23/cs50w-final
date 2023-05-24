@@ -18,9 +18,6 @@ const useLogin = () => {
     localStorage.setItem("tokens", JSON.stringify(tokens));
     
     navigate("/");
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
   };
 
   return login;
