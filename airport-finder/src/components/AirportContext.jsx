@@ -8,7 +8,7 @@ import axios from "axios";
 
 export const AirportContext = createContext(null);
 
-export default function Layout(props) {
+export default function AirportContext(props) {
   const fetchUser = useFetchUser();
   const navigate = useNavigate();
   const logout = useLogout();

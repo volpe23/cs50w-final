@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
+import AirportContext from '@/components/AirportContext';
 import Navbar from './components/Navbar';
 import './styles/App.scss';
 
@@ -17,7 +17,7 @@ function App() {
 	return (
 			<main className="main">
 					<Navbar />
-				<Layout>
+				<AirportContext>
 					<Routes>
 						<Route element={<PrivateRoute />}>
 							<Route path='/' element={<Home />} />
@@ -28,7 +28,7 @@ function App() {
 						<Route path='/register' element={<Register />} />
 						<Route path='/login' element={<Login />} />
 					</Routes>
-				</Layout>
+				</AirportContext>
 			</main>
 	)
 	}
