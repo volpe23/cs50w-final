@@ -1,14 +1,14 @@
 import { useState, useEffect, createContext } from "react";
 import useFetchUser from "../hooks/useFetchUser";
-import useAuth from "../hooks/useAuth";
-import Spinner from "./utils/spinner";
-import { useNavigate } from "react-router-dom";
-import useLogout from "../hooks/useLogout";
+import useAuth from "@/hooks/useAuth";
+import Spinner from "@/components/utils/Spinner";
+import { useNavigate, Outlet } from "react-router-dom";
+import useLogout from "@/hooks/useLogout";
 import axios from "axios";
 
 export const AirportContext = createContext(null);
 
-export default function AirportContext(props) {
+export default function AirportContextProvider() {
   const fetchUser = useFetchUser();
   const navigate = useNavigate();
   const logout = useLogout();
@@ -62,7 +62,7 @@ export default function AirportContext(props) {
   return (
     <>
       <AirportContext.Provider value={airports}>
-        {isLoading ? <Spinner size="large" /> : props.children}
+        {isLoading ? <Spinner size="large" /> : <Outlet />}
       </AirportContext.Provider>
     </>
   );

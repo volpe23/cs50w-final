@@ -35,7 +35,7 @@ export default function Login() {
             setIsLoading(true);
             const res = await axios.post(`/auth/jwt/create/`, body);
             localStorage.setItem('tokens', JSON.stringify(res?.data));
-            fetchUser(controller);
+            // fetchUser(controller);
             login(res?.data)
         } catch (err) {
             setIsLoading(false);

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"],
+      "@/components/*": ["components/*"],
+      "@/styles/*": ["styles/*"],
+      "@/hooks/*" : ["hooks/*"],
+      // add more folders here
+    }
+  },
+  "exclude": ["node_modules", ".next"]
+}
