@@ -186,3 +186,7 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 
 AUTH_USER_MODEL = 'finder.UserAccount'
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATETIME_INPUT_FORMATS = ['%d-%m-%Y']
+DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"

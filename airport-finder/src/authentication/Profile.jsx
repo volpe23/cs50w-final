@@ -1,16 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAuth from "@/hooks/useAuth";
 import '@/authentication/styles/Profile.scss';
+import axios from "@/hooks/useAxios";
 import Button from '@/components/utils/Button';
 
 export default function Profile() {
 
   const { userAccount } = useAuth();
   const { username, first_name, last_name } = userAccount;
+  const [lastLogin, setLastLogin] = useState(null);
 
   const user = new User(userAccount)
   useEffect(() => {
-    console.log(user, userAccount);
+    const controller = new AbortController();
+    const getUserData = async () => {
+      try {
+        const res = await axios.get(`/backend/user/${userAccount.id}`, {
+          signal: controller.signal
+        })
+        const date = new Date(res.data?.response.last_login);
+        setLastLogin(date);
+        console.log(res, date, );
+      } catch(err) {
+        console.log(err);
+      }
+    } 
+
+    getUserData();
+
+    return () => controller.abort();
   }, [userAccount])
 
   return (

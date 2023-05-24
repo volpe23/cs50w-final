@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse, Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+
+from datetime import datetime
 from .serializers import *
 from . import scraper
 from .models import *
@@ -32,11 +34,12 @@ class UserInfo(APIView):
     
     def get(self, request, pk, format = None):
         user = self.get_user(pk)
+        # user.last_login = user.last_login.strftime('%Y-%m-%d')
         serializer = UserSerializer(user)
-        print(request.data)
+        print(user)
         # if serializer.is_valid():
         try:
             # serializer.save()
-            return Response({'status' : 'success', 'data' : serializer.data}, status=status.HTTP_200_OK)
+            return Response({'status' : 'success', 'response' : serializer.data}, status=status.HTTP_200_OK)
         except UserAccount.DoesNotExist:
-            return Response({'status' : 'error', 'data' : serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'status' : 'error', 'response' : serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

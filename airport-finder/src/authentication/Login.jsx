@@ -11,16 +11,13 @@ import Button from '@/components/utils/Button';
 
 export default function Login() {
     const { setIsLoading, authTokens } = useAuth()
-    const logout = useLogout();
     const [isError, setIsError] = useState(false)
     const [formData, setFromData] = useState({
         email: '',
         password: ''
     })
-    const navigate = useNavigate();
     const location = useLocation();
     const login = useLogin();
-    const fetchUser = useFetchUser();
 
     const onChange = (e) => {
         setFromData({...formData, [e.target.name]: e.target.value})
@@ -34,7 +31,6 @@ export default function Login() {
             // setIsLoading(true);
             const res = await axios.post(`/auth/jwt/create/`, body);
             localStorage.setItem('tokens', JSON.stringify(res?.data));
-            // fetchUser(controller);
             login(res?.data)
         } catch (err) {
             setIsLoading(false);
@@ -45,7 +41,6 @@ export default function Login() {
     }
 
     useEffect(() => {
-        // if (authTokens) navigate('/')
         if (location?.state) {
             setIsError(location.state.text);
         } 
