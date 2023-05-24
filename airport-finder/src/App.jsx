@@ -16,8 +16,8 @@ function App() {
 
 	return (
 			<main className="main">
-				<Layout>
 					<Navbar />
+				<Layout>
 					<Routes>
 						<Route element={<PrivateRoute />}>
 							<Route path='/' element={<Home />} />
