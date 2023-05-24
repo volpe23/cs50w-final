@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
-import axios from '../hooks/useAxios';
+import useAuth from '@/hooks/useAuth';
+import useLogin from '@/hooks/useLogin';
+import axios from '@/hooks/useAxios';
+import useLogout from '@/hooks/useLogout';
+import useFetchUser from '@/hooks/useFetchUser';
 
-import './styles/Authentication.scss';
-import Button from '../components/utils/Button';
+import '@/authentication/styles/Authentication.scss';
+import Button from '@/components/utils/Button';
 
 export default function Login() {
-    const { login, logout, setIsLoading, authTokens } = useAuth()
+    const { setIsLoading, authTokens } = useAuth()
+    const logout = useLogout();
     const [isError, setIsError] = useState(false)
     const [formData, setFromData] = useState({
         email: '',
@@ -15,6 +19,8 @@ export default function Login() {
     })
     const navigate = useNavigate();
     const location = useLocation();
+    const login = useLogin();
+    const fetchUser = useFetchUser();
 
     const onChange = (e) => {
         setFromData({...formData, [e.target.name]: e.target.value})
@@ -24,24 +30,25 @@ export default function Login() {
         e.preventDefault();
 
         const body = JSON.stringify(formData);
-        
+        const controller = new AbortController();
         try {
             setIsLoading(true);
             const res = await axios.post(`/auth/jwt/create/`, body);
             localStorage.setItem('tokens', JSON.stringify(res?.data));
+            fetchUser(controller);
             login(res?.data)
         } catch (err) {
             setIsLoading(false);
             console.log(err);
             setIsError(err.response?.data?.detail)
+            controller.abort();
         }
     }
 
     useEffect(() => {
-        if (authTokens) navigate('/');
+        if (authTokens) navigate('/')
         if (location?.state) {
             setIsError(location.state.text);
-            location.state?.operation === 'logout' ? logout() : null;
         } 
         console.log(location);
     }, [])

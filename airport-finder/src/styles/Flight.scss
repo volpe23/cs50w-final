@@ -1,4 +1,4 @@
-@import './main.scss';
+@import '@/styles/main.scss';
 
 .flight {
     background-color: $baby-powder;
@@ -11,7 +11,6 @@
     margin: 1rem 0;
     padding: 1rem;
     padding-right: 0;
-    @include transition;
     @include shadow;
     
 }

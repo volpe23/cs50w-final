@@ -1,16 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
-import '../styles/Navbar.scss';
-import logo from '../imgs/icons8-airplane-96.png';
-import useAuth from "../hooks/useAuth";
+import { Link } from "react-router-dom";
+import '@/styles/Navbar.scss';
+import logo from '@/imgs/icons8-airplane-96.png';
+import useAuth from "@/hooks/useAuth";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import useLogout from "@/hooks/useLogout";
 
 export default function Navbar() {
-
-    const navigate = useNavigate()
+    const logout = useLogout();
 
     const { userAccount } = useAuth();
-
-    
 
     return (
       <nav className="navbar">
@@ -39,17 +37,10 @@ export default function Navbar() {
                     <AccountCircleIcon style={{
                       marginRight: '5px',
                       paddingLeft: '0'
-                    }}/> Profile
+                    }}/> {userAccount?.username}
                   </Link>
                 </li>
-                <li onClick={() => {
-                  navigate('/login', {
-                    state: { 
-                      text : 'You have logged out!',
-                      operation : 'logout'
-                      }
-                  })
-                }}>
+                <li onClick={() => logout("You have logged out!")}>
                 <Link className="nav-btn btn-outline" >Logout</Link>
               </li>
 

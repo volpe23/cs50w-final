@@ -1,22 +1,11 @@
 import { Outlet, Navigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import { useEffect } from "react";
-import useFetchUser from "../hooks/useFetchUser";
+import useAuth from "@/hooks/useAuth";
 
 const PrivateRoute = () => {
-    const fetchUser = useFetchUser();
-    const { authTokens } = useAuth();
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        fetchUser(controller);
-
-        return () => controller.abort();
-    }, [])
+    const { userAccount } = useAuth();
 
     return (
-        authTokens
+        userAccount
             ? <Outlet />
             : <Navigate to='/login' replace/>
     )

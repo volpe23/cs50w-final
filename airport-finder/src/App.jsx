@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Navbar from './components/Navbar';
-import AuthProvider from './GlobalStates';
 import './styles/App.scss';
 
 import Home from './components/Home';
@@ -13,14 +12,17 @@ import Profile from './authentication/Profile';
 
 function App() {
 
+
+
 	return (
-		<AuthProvider>
 			<main className="main">
-				<Layout>
 					<Navbar />
+				<Layout>
 					<Routes>
 						<Route element={<PrivateRoute />}>
 							<Route path='/' element={<Home />} />
+						</Route>
+						<Route element={<PrivateRoute />}>
 							<Route path='/account' element={<Profile />} />
 						</Route>
 						<Route path='/register' element={<Register />} />
@@ -28,7 +30,6 @@ function App() {
 					</Routes>
 				</Layout>
 			</main>
-		</AuthProvider>
 	)
 	}
 

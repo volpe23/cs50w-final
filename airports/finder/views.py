@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from bs4 import BeautifulSoup as bs
+from django.http import HttpResponse, JsonResponse, Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import *
 from . import scraper
 from .models import *
 
@@ -8,22 +11,6 @@ from .models import *
 # Create your views here.
 def index(request):
     return HttpResponse("Hello world!")
-
-def scrape(request):
-    # url = 'https://www.kayak.ie/flights/RIX-MTY/2023-09-24-flexible-3days/2023-10-03-flexible-3days/2adults?sort=bestflight_a'
-    
-    # driver = webdriver.Chrome()
-    # driver.get(url)
-    
-    # try:
-    #     element = WebDriverWait(driver, 20).until(
-    #         EC.presence_of_element_located((By.CLASS_NAME, 'best-flights-list-results'))
-    #     )
-    #     # print(element, "Hello world!")
-    # except:
-    #     pass
-    
-    return render(request, 'finder/scraper.html')
 
 def flight(request):
     from_airport = request.GET['from']
@@ -34,3 +21,22 @@ def flight(request):
     flights = scraper.launch_browser(from_airport, destination, start_date, back_date)
     # print(flights)
     return JsonResponse({'flights' : flights}, safe=False)
+
+class UserInfo(APIView):
+    
+    def get_user(self, pk):
+        try:
+            return UserAccount.objects.get(pk=pk)
+        except UserAccount.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, pk, format = None):
+        user = self.get_user(pk)
+        serializer = UserSerializer(user)
+        print(request.data)
+        # if serializer.is_valid():
+        try:
+            # serializer.save()
+            return Response({'status' : 'success', 'data' : serializer.data}, status=status.HTTP_200_OK)
+        except UserAccount.DoesNotExist:
+            return Response({'status' : 'error', 'data' : serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
