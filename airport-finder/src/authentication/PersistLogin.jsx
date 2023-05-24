@@ -3,7 +3,7 @@ import useAuth from "@/hooks/useAuth";
 import useLogout from "../hooks/useLogout";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/utils/spinner";
-import axios from '@/hooks/useAxios'
+import axios from '@/hooks/useAxios';
 
 
 export default function  PersistLogin() {
@@ -13,7 +13,6 @@ export default function  PersistLogin() {
   const { authTokens, userAccount } = useAuth();
   const navigate = useNavigate();
   const logout = useLogout();
-
   
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export default function  PersistLogin() {
       }
     };
     (authTokens) ? verifyJwt() : setIsLoading(false);
-
+    
     return () => {
       controller.abort()
       isMounted = false
@@ -55,7 +54,7 @@ export default function  PersistLogin() {
   return (
     <>
       {
-        authTokens
+        authTokens && !userAccount
         ? <Outlet />
         : isLoading 
           ? <Spinner />

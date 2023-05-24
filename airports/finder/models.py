@@ -21,7 +21,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    # last_login = models.DateTimeField(blank=True, null=True, format='%d-%m-%Y')
+    date_joined = models.DateTimeField(auto_now_add=True)
     
     objects = UserAccountManager()
     

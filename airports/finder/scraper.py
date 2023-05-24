@@ -14,8 +14,8 @@ def launch_browser(from_airport, destination, start_date, back_date):
     url = f'https://www.kayak.ie/flights/{from_airport}-{destination}/{start_date}-flexible-3days/{back_date}-flexible-3days/2adults?sort=bestflight_a'
     options = Options()
     options.add_experimental_option('detach', True)
-    # options.headless = True
-    # options.add_argument("--window-size=1920,1080")
+    options.headless = True
+    options.add_argument("--window-size=1920,1080")
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument("--disable-extensions")
     driver = webdriver.Chrome(options=options)

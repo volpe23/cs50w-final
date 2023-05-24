@@ -8,9 +8,8 @@ export default function Profile() {
 
   const { userAccount } = useAuth();
   const { username, first_name, last_name } = userAccount;
-  const [lastLogin, setLastLogin] = useState(null);
-
-  const user = new User(userAccount)
+  const [userData, setUserData] = useState(null);
+  // const user = new User(userAccount)
   useEffect(() => {
     const controller = new AbortController();
     const getUserData = async () => {
@@ -18,9 +17,10 @@ export default function Profile() {
         const res = await axios.get(`/backend/user/${userAccount.id}`, {
           signal: controller.signal
         })
-        const date = new Date(res.data?.response.last_login);
-        setLastLogin(date);
-        console.log(res, date, );
+        // const user1 = new User()
+        console.log(res);
+        const date = new Date(res?.data?.date_joined);
+        setUserData(new User({...userAccount, dateJoined : date}))
       } catch(err) {
         console.log(err);
       }
@@ -32,13 +32,16 @@ export default function Profile() {
   }, [userAccount])
 
   return (
-    userAccount &&
+    userData &&
     <div className="profile">
       <div className="profile__card">
         <p className="profile__fullname">
-          {user.getFullName()}
+          {userData.getFullName()}
         </p>
-        <span className="profile__username">@{user.username}</span>
+        <span className="profile__username">@{userData.username}</span>
+        <p>
+          Joined {userData.showDate()}
+        </p>
       </div>
         <Button style={{
           width: '100%'
@@ -49,15 +52,20 @@ export default function Profile() {
 }
 
 class User {
-  constructor({username, last_name, first_name, email} = {}) {
+  constructor({username, last_name, first_name, email, dateJoined} = {}) {
     this.username = username,
     this.lastName = capitalizeWord(last_name),
     this.firstName = capitalizeWord(first_name),
-    this.email = email
+    this.email = email,
+    this.dateJoined = dateJoined
   }
 
   getFullName() {
     return this.firstName + ' ' + this.lastName;
+  }
+
+  showDate() {
+    return this.dateJoined.toDateString();
   }
 
 }

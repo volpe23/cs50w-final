@@ -13,7 +13,7 @@ const useRefreshToken = () => {
             const res = await axios.post('/auth/jwt/refresh/', JSON.stringify(body));
             const newTokens = res?.data;
             localStorage.setItem('tokens', JSON.stringify(newTokens));
-            console.log(newTokens)
+            console.log(newTokens);
             setAuthTokens(newTokens);
             return newTokens;
 
